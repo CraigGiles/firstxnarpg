@@ -1,0 +1,14 @@
+Name:Flower
+Texture:Characters/Enemies/Flower
+Level:1
+Exp:300
+Gold:25
+Speed:3
+Radius:8
+ActionTimerReset:8
+Health:300
+Mana:300
+Strength:10
+Armor:1
+SpriteWidth:65
+SpriteHeight:65

@@ -1,0 +1,13 @@
+Name:Rabite
+Texture:Characters/Enemies/Rabite
+Level:3
+Gold:25
+Speed:3
+Radius:8
+ActionTimerReset:7
+Health:300
+Mana:300
+Strength:10
+Armor:10
+SpriteWidth:75
+SpriteHeight:75
