@@ -1,7 +1,0 @@
-D:\Programming\Projects\XNA\ShackRPG\TileEngine\obj\x86\Debug\ResolveAssemblyReference.cache
-D:\Programming\Projects\XNA\ShackRPG\TileEngine\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
-D:\Programming\Projects\XNA\ShackRPG\TileEngine\obj\x86\Debug\TileEngine.obj.x86.Debug.Microsoft.Xna.Framework.RuntimeProfile.txt
-D:\Programming\Projects\XNA\ShackRPG\TileEngine\bin\x86\Debug\TileEngine.dll
-D:\Programming\Projects\XNA\ShackRPG\TileEngine\bin\x86\Debug\TileEngine.pdb
-D:\Programming\Projects\XNA\ShackRPG\TileEngine\obj\x86\Debug\TileEngine.dll
-D:\Programming\Projects\XNA\ShackRPG\TileEngine\obj\x86\Debug\TileEngine.pdb

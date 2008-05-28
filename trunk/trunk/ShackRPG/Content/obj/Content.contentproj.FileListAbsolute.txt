@@ -1,1 +1,0 @@
-D:\Programming\Projects\XNA\ShackRPG\ShackRPG\Content\obj\x86\Debug\ResolveAssemblyReference.cache
