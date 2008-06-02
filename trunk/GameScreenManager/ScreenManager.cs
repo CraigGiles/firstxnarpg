@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Helper;
+using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace ActionRPG
 {
@@ -104,6 +106,9 @@ namespace ActionRPG
 
             //add screen to list
             screens.Add(screen);
+
+            if (screen.Name == "MapEditor")
+                MapEditor.Active = true;
         }
 
 
@@ -135,12 +140,12 @@ namespace ActionRPG
                 {
                     screensToRemove.Add(screen);
                     screensToUpdate[screensToUpdate.Count - 2].HasFocus = true;
-
+                                        
                     break;
                 }
             }
         }
-
+        
 
         /// <summary>
         /// Updates all screens needing to be updated
@@ -153,6 +158,9 @@ namespace ActionRPG
             //Get users input and put it into Globals
             input.GetUserInput(Globals.GameTime);
             Globals.Input = input;
+
+
+            
 
             //clears the update list
             screensToUpdate.Clear();
@@ -168,12 +176,16 @@ namespace ActionRPG
             foreach (GameScreen s in screensToUpdate)
             {
 
-                s.Update(isPopupScreenActive);
+                s.Update(isPopupScreenActive); 
 
 
                 if (s.IsPopup)
-                    isPopupScreenActive = true;
+                    isPopupScreenActive = true;                
             }
+
+            //Check for console
+            if (Globals.Input.IsKeyPressed(Keys.OemTilde) && screens[screens.Count - 1].Name != "Console")
+                this.AddScreen(new Console());
 
         }//end Update()
 
@@ -183,6 +195,7 @@ namespace ActionRPG
         /// </summary>
         public void Draw()
         {
+
             foreach (GameScreen s in screens)
             {
                 //if screen is hidden, do not draw
@@ -192,6 +205,7 @@ namespace ActionRPG
                 //if screen is not hidden, draw the screen
                 s.Draw();
             }
+
         }//end Draw()
 
         #endregion
@@ -213,6 +227,9 @@ namespace ActionRPG
                 //remove the screen from all lists
                 screens.Remove(screen);
                 screensToUpdate.Remove(screen);
+
+                if (screen.Name == "MapEditor")
+                    MapEditor.Active = false;
             }
 
             //once all screens have been removed, clear the list
@@ -220,6 +237,6 @@ namespace ActionRPG
         }
 
         #endregion
-
+        
     }//end Class
 }//end Namespace

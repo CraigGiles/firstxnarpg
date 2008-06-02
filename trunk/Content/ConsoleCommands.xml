@@ -1,0 +1,20 @@
+﻿<Commands>
+	<MapEditor>
+		<map_editor>Turns on / off map editor</map_editor>
+		<map_save>Saves current map by its name</map_save>
+		<map_load>Loads a map by its asset name</map_load>
+		<map_newname>Renames current map</map_newname>
+		<map_newmap>Creates a blank map</map_newmap>
+		<map_tilesize>Adjusts the tilesize of the current map</map_tilesize>			
+	</MapEditor>
+	<Config>
+		<cfg_save>Saves current config</cfg_save>
+		<cfg_load>Loads config.xml</cfg_load>
+	</Config>
+	<Components>
+		<fps_show>Turns on / off FPS display</fps_show>
+		<fps_scale>Adjusts the size of the FPS font</fps_scale>
+	</Components>	
+</Commands>
+
+
