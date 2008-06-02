@@ -1,0 +1,11 @@
+﻿<TileSet>
+	<Field>
+		<Texture Asset="se_free_grass_texture" ID="0" />
+		<Texture Asset="se_free_dirt_texture" ID="1" />
+		<Texture Asset="se_free_ground_texture" ID="2" />
+		<Texture Asset="se_free_mud_texture" ID="3" />
+		<Texture Asset="se_free_road_texture" ID="4" />
+		<Texture Asset="se_free_rock_texture" ID="5" />
+		<Texture Asset="se_free_wood_texture" ID="6" />
+	</Field>
+</TileSet>
