@@ -1,0 +1,25 @@
+﻿<Weapon>
+	<!-- Gear Specific Data -->
+	<Asset>ShortSword</Asset>
+	<Description>Short, but packs a punch</Description>
+	<GraphicIcon>Sword01a</GraphicIcon>
+	<Slot>Weapon</Slot>
+	<Stats>
+		<Health></Health>
+		<Mana></Mana>
+		<Strength></Strength>
+		<Stamina></Stamina>
+		<Agility></Agility>
+		<Dexterity>1</Dexterity>
+		<Wisdom></Wisdom>
+		<Intelligence></Intelligence>
+		<Haste></Haste>
+	</Stats>
+	<GoldValue>6</GoldValue>
+	<Dropable>true</Dropable>
+
+	<!-- Weapon Specific Data -->
+	<Damage>2</Damage>
+	<Delay>8</Delay>
+
+</Weapon>

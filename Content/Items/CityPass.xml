@@ -1,0 +1,7 @@
+﻿<Item>
+	<Asset>CityPass</Asset>
+	<Description>A pass to the city of Naire</Description>
+	<GraphicIcon>Scroll01a</GraphicIcon>
+	<GoldValue>0</GoldValue>
+	<Dropable>false</Dropable>
+</Item>

@@ -1,0 +1,23 @@
+﻿<Accessory>
+	<!-- Gear Specific Data -->
+	<Asset>Gems01b</Asset>
+	<Description>Polished and bright</Description>
+	<GraphicIcon>Boots01a</GraphicIcon>
+	<Slot>Accessory</Slot>
+	<Stats>
+		<Health></Health>
+		<Mana></Mana>
+		<Strength></Strength>
+		<Stamina>2</Stamina>
+		<Agility></Agility>
+		<Dexterity></Dexterity>
+		<Wisdom></Wisdom>
+		<Intelligence></Intelligence>
+		<Haste></Haste>
+	</Stats>
+	<GoldValue>1</GoldValue>
+	<Dropable>true</Dropable>
+
+	<!-- Accessory Specific Data -->
+	
+</Accessory>

@@ -1,0 +1,24 @@
+﻿<Armor>
+	<!-- Gear Specific Data -->
+	<Asset>QualityTunic</Asset>
+	<Description>This tunic provides good protection</Description>
+	<GraphicIcon>torso03a</GraphicIcon>
+	<Slot>Chest</Slot>
+	<Stats>
+		<Health></Health>
+		<Mana></Mana>
+		<Strength></Strength>
+		<Stamina></Stamina>
+		<Agility></Agility>
+		<Dexterity></Dexterity>
+		<Wisdom></Wisdom>
+		<Intelligence></Intelligence>
+		<Haste></Haste>
+	</Stats>
+	<GoldValue>3</GoldValue>
+	<Dropable>true</Dropable>
+
+	<!-- Armor Specific Data -->
+	<Defense>3</Defense>
+
+</Armor>

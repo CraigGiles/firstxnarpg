@@ -1,0 +1,30 @@
+﻿<TownGuard>
+	<Asset>TownGuard</Asset>
+
+	<Hostile>false</Hostile>
+	
+	<Stats>
+		<Health>450</Health>
+		<Mana>200</Mana>
+		<Strength>15</Strength>
+		<Stamina>18</Stamina>
+		<Agility>10</Agility>
+		<Dexterity>11</Dexterity>
+		<Intelligence>15</Intelligence>
+		<Wisdom>10</Wisdom>
+	</Stats>
+
+	<Inventory>
+		<Gold>10</Gold>		   
+	</Inventory>
+
+	<Equipment>
+		<Armor>BattleTunic</Armor>
+		<Accessory>GoldBand</Accessory>
+		<Weapon>SwordOfStrength</Weapon>
+	</Equipment>
+
+	<Animations />
+	
+</TownGuard>
+
