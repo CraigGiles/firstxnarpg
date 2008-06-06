@@ -58,20 +58,31 @@
     <Reference Include="System.XML" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Animation\Animation.cs" />
     <Compile Include="BaseGame.cs" />
     <Compile Include="Camera\Camera2D.cs" />
-    <Compile Include="GameCharacters\Character.cs">
+    <Compile Include="Characters\Character.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="GameCharacters\NPC.cs">
+    <Compile Include="Characters\NPC.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="GameCharacters\Player.cs">
+    <Compile Include="Characters\Player.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="GameCharacters\Stats.cs" />
-    <Compile Include="GameObjects\GameObject.cs" />
-    <Compile Include="GameObjects\Item.cs" />
+    <Compile Include="Characters\Stats.cs" />
+    <Compile Include="Characters\Timers.cs" />
+    <Compile Include="GameScreens\MainGameScreen.cs" />
+    <Compile Include="Inventory\Accessory.cs" />
+    <Compile Include="Inventory\Armor.cs" />
+    <Compile Include="Inventory\Equipment.cs" />
+    <Compile Include="Inventory\Gear.cs" />
+    <Compile Include="Inventory\Item.cs" />
+    <Compile Include="Inventory\StatisticsValue.cs" />
+    <Compile Include="WorldObjects\GameObject.cs" />
+    <Compile Include="Inventory\Inventory.cs" />
+    <Compile Include="WorldObjects\WorldItem.cs" />
+    <Compile Include="Inventory\Weapon.cs" />
     <Compile Include="GameScreenManager\GameScreen.cs" />
     <Compile Include="GameScreenManager\InputState.cs" />
     <Compile Include="GameScreenManager\ScreenManager.cs" />

@@ -22,5 +22,10 @@ namespace ActionRPG
         public static TileEngine TileEngine;
         public static Camera2D Camera;
 
+        public static Settings Settings;
+
+
+
+        public const int StatCap = 99;
     }
 }

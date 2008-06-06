@@ -15,7 +15,18 @@ namespace ActionRPG
 
         #region Map Data
 
+
+        /// <summary>
+        /// Asset name of the next map loaded into memory
+        /// </summary>
+        public string MapToLoad
+        {
+            get { return mapToLoad; }
+            set { mapToLoad = value; }
+        }
+        string mapToLoad;
         
+
         /// <summary>
         /// Gets or sets map Name
         /// </summary>
@@ -63,6 +74,17 @@ namespace ActionRPG
             set { tileSize = new Point(value, value); }
         }
         Point tileSize;
+
+
+        /// <summary>
+        /// Scale of map for use with editor zooming
+        /// </summary>
+        public float Scale
+        {
+            get { return scale; }
+            set { scale = (float)MathHelper.Clamp(value, .25f, 5f); }
+        }
+        float scale = 1.0f;
 
 
         /// <summary>
@@ -121,14 +143,14 @@ namespace ActionRPG
 
 
         /// <summary>
-        /// List of items in the current maps world
+        /// List of Items in the current maps world
         /// </summary>
-        public List<Item> Items
+        public List<WorldItem> WorldItems
         {
-            get { return items; }
-            set { items = value; }
+            get { return worldItems; }
+            set { worldItems = value; }
         }
-        List<Item> items = new List<Item>();
+        List<WorldItem> worldItems = new List<WorldItem>();
 
 
         /// <summary>
@@ -196,7 +218,7 @@ namespace ActionRPG
 
         #region MapEditor Delete Lists
         List<NPC> npcsToRemove = new List<NPC>();
-        List<Item> itemsToRemove = new List<Item>();
+        List<WorldItem> WorldItemsToRemove = new List<WorldItem>();
         List<Portal> portalsToRemove = new List<Portal>();
         #endregion
 
@@ -214,15 +236,15 @@ namespace ActionRPG
             doc.AppendChild(Map);
 
             //Write map information
-            WriteMapName(doc, Map);
-            WriteMapDimensions(doc, Map);
+            WrWorldItemapName(doc, Map);
+            WrWorldItemapDimensions(doc, Map);
             WriteTileSize(doc, Map);
             WriteTileSet(doc, Map);
             WritePlayerRespawn(doc, Map);
             WriteNpcInfo(doc, Map);
-            WriteItemInfo(doc, Map);
+            WriteWorldItemInfo(doc, Map);
             WritePortalInfo(doc, Map);
-            WriteMusicCue(doc, Map);
+            WrWorldItemusicCue(doc, Map);
             WriteLayerInfo(doc, Map);
 
             //save map
@@ -326,7 +348,7 @@ namespace ActionRPG
             Map.AppendChild(BaseLayerElement);
         }
 
-        private void WriteMusicCue(XmlDocument doc, XmlElement Map)
+        private void WrWorldItemusicCue(XmlDocument doc, XmlElement Map)
         {
             XmlElement MusicCueElement = doc.CreateElement("MusicCueName");
             MusicCueElement.InnerText = MusicCue;
@@ -372,26 +394,26 @@ namespace ActionRPG
             }
         }
 
-        private void WriteItemInfo(XmlDocument doc, XmlElement Map)
+        private void WriteWorldItemInfo(XmlDocument doc, XmlElement Map)
         {
-            foreach (Item item in items)
+            foreach (WorldItem WorldItem in WorldItems)
             {
-                XmlElement ItemElement = doc.CreateElement("Item");
+                XmlElement WorldItemElement = doc.CreateElement("WorldItem");
 
-                XmlNode itemAsset = doc.CreateElement("Asset");
-                itemAsset.InnerText = item.AssetName;
+                XmlNode WorldItemAsset = doc.CreateElement("Asset");
+                WorldItemAsset.InnerText = WorldItem.AssetName;
 
-                XmlNode itemX = doc.CreateElement("X");
-                itemX.InnerText = item.SpawnLocationTile.X.ToString();
+                XmlNode WorldItemX = doc.CreateElement("X");
+                WorldItemX.InnerText = WorldItem.SpawnLocationTile.X.ToString();
 
-                XmlNode itemY = doc.CreateElement("Y");
-                itemY.InnerText = item.SpawnLocationTile.Y.ToString();
+                XmlNode WorldItemY = doc.CreateElement("Y");
+                WorldItemY.InnerText = WorldItem.SpawnLocationTile.Y.ToString();
 
-                ItemElement.AppendChild(itemAsset);
-                ItemElement.AppendChild(itemX);
-                ItemElement.AppendChild(itemY);
+                WorldItemElement.AppendChild(WorldItemAsset);
+                WorldItemElement.AppendChild(WorldItemX);
+                WorldItemElement.AppendChild(WorldItemY);
 
-                Map.AppendChild(ItemElement);
+                Map.AppendChild(WorldItemElement);
             }
         }
 
@@ -455,14 +477,14 @@ namespace ActionRPG
             Map.AppendChild(TileSizeElement);
         }
 
-        private void WriteMapName(XmlDocument doc, XmlElement Map)
+        private void WrWorldItemapName(XmlDocument doc, XmlElement Map)
         {
             XmlElement Name = doc.CreateElement("Name");
             Name.InnerText = mapName;
             Map.AppendChild(Name);
         }
 
-        private void WriteMapDimensions(XmlDocument doc, XmlElement Map)
+        private void WrWorldItemapDimensions(XmlDocument doc, XmlElement Map)
         {
             XmlElement MapDimensions = doc.CreateElement("MapDimensions");
             XmlNode mapDimensionWidth = doc.CreateElement("Width");
@@ -496,6 +518,13 @@ namespace ActionRPG
         /// <param name="name">Asset name of map to load</param>
         public void Load(string name)
         {
+            //Unloads any current maps
+            UnloadMap();
+
+            tempBaseLayer.Clear();
+            tempFringeLayer.Clear();
+            tempObjectLayer.Clear();
+            tempCollisionLayer.Clear();
 
             XmlDocument doc = new XmlDocument();
             doc.Load(@"Content/Maps/" + name + ".xml");
@@ -523,8 +552,8 @@ namespace ActionRPG
                     else if (node.Name == "NPC")
                         SetNpc(node);
 
-                    else if (node.Name == "Item")
-                        SetItem(node);
+                    else if (node.Name == "WorldItem")
+                        SetWorldItem(node);
 
                     else if (node.Name == "Portal")
                         SetPortal(node);
@@ -533,16 +562,16 @@ namespace ActionRPG
                         SetMusicCue(node);
 
                     else if (node.Name == "BaseLayer")
-                        LoadMapLayer(Enum.MapLayer.Base, node);
+                        LoadMapLayer(MapLayer.Base, node);
 
                     else if (node.Name == "FringeLayer")
-                        LoadMapLayer(Enum.MapLayer.Fringe, node);
+                        LoadMapLayer(MapLayer.Fringe, node);
 
                     else if (node.Name == "ObjectLayer")
-                        LoadMapLayer(Enum.MapLayer.Object, node);
+                        LoadMapLayer(MapLayer.Object, node);
 
                     else if (node.Name == "CollisionLayer")
-                        LoadMapLayer(Enum.MapLayer.Collision, node);
+                        LoadMapLayer(MapLayer.Collision, node);
                 }
             }
 
@@ -550,7 +579,7 @@ namespace ActionRPG
             InitializeMapLayout();
         }
 
-        private void LoadMapLayer(Enum.MapLayer layer, XmlNode nodes)
+        private void LoadMapLayer(MapLayer layer, XmlNode nodes)
         {
             foreach (XmlNode node in nodes.ChildNodes)
             {
@@ -577,19 +606,19 @@ namespace ActionRPG
                 //depending what layer we're inputing, add the row to that layer
                 switch (layer)
                 {
-                    case Enum.MapLayer.Base:
+                    case MapLayer.Base:
                         tempBaseLayer.Add(row);
                         break;
 
-                    case Enum.MapLayer.Fringe:
+                    case MapLayer.Fringe:
                         tempFringeLayer.Add(row);
                         break;
 
-                    case Enum.MapLayer.Object:
+                    case MapLayer.Object:
                         tempObjectLayer.Add(row);
                         break;
 
-                    case Enum.MapLayer.Collision:
+                    case MapLayer.Collision:
                         tempCollisionLayer.Add(row);
                         break;
                 }//end switch
@@ -646,16 +675,16 @@ namespace ActionRPG
                 pLocation.Y * TileHeight);
         }
 
-        private void SetItem(XmlNode node)
+        private void SetWorldItem(XmlNode node)
         {
-            items.Add(new Item());
+            WorldItems.Add(new WorldItem());
             Point sLocation = Point.Zero;
 
 
             foreach (XmlNode n in node.ChildNodes)
             {
                 if (n.Name == "Asset")
-                    items[npcs.Count - 1].AssetName = n.InnerText;
+                    WorldItems[npcs.Count - 1].AssetName = n.InnerText;
 
                 if (n.Name == "X")
                     sLocation.X = int.Parse(n.InnerText);
@@ -665,8 +694,8 @@ namespace ActionRPG
             }
 
             //sets the spawn location vectors and points
-            items[items.Count - 1].SpawnLocationTile = sLocation;
-            items[items.Count - 1].SpawnLocationVector = new Vector2(
+            WorldItems[WorldItems.Count - 1].SpawnLocationTile = sLocation;
+            WorldItems[WorldItems.Count - 1].SpawnLocationVector = new Vector2(
                 sLocation.X * TileWidth,
                 sLocation.Y * TileHeight);
         }
@@ -694,6 +723,13 @@ namespace ActionRPG
             npcs[npcs.Count - 1].SpawnLocationVector = new Vector2(
                 sLocation.X * TileWidth,
                 sLocation.Y * TileHeight);
+
+            //sets the NPCs current position
+            npcs[npcs.Count - 1].CurrentPosition = npcs[npcs.Count - 1].SpawnLocationVector;
+
+            //initializes NPC from XML file
+            npcs[npcs.Count - 1].Initialize(npcs[npcs.Count - 1].AssetName);
+            
         }
 
         private void SetPlayerRespawn(XmlNode node)
@@ -840,23 +876,20 @@ namespace ActionRPG
             //populate NPCs
             PopulateNpcs();
 
-            //populate World Items
-            PopulateItems();
+            //populate World WorldItems
+            PopulateWorldItems();
         }
 
         private void PopulateNpcs()
         {
-            foreach (NPC npc in npcs)
-            {
-                npc.Initialize();
-            }
+
         }
 
-        private void PopulateItems()
+        private void PopulateWorldItems()
         {
-            foreach (Item item in items)
+            foreach (WorldItem WorldItem in WorldItems)
             {
-                item.Initialize();
+                WorldItem.Initialize();
             }
         }
 
@@ -874,27 +907,36 @@ namespace ActionRPG
 
             tiles.Clear();
             npcs.Clear();
-            items.Clear();
+            WorldItems.Clear();
             portals.Clear();
+
+            Name = string.Empty;
+            mapDimentions = Point.Zero;
+            tileSize = Point.Zero;
+            Tileset = string.Empty;
+            PlayerRespawnTile = Point.Zero;          
+
         }
         
         #endregion
 
         
         #region Player Stepped Into Portal
-
         
         /// <summary>
         /// When a player steps into a portal, loads the new map and 
         /// returns the portals destination tile on new map
         /// </summary>
         /// <param name="portal">Portal stepped onto by player</param>
-        /// <returns>Point</returns>
-        public Point PlayerSteppedInPortal(Portal portal)
-        {            
+        /// <returns>Vector2</returns>
+        public Vector2 PlayerSteppedInPortal(Portal portal)
+        {
+            MapToLoad = portal.DestinationMap;
+
             Load(portal.DestinationMap);
 
-            return portal.DestinationSpawn;
+            return new Vector2( portal.DestinationSpawn.X * TileWidth,
+                                portal.DestinationSpawn.Y * TileHeight);
         }
 
 
@@ -937,7 +979,7 @@ namespace ActionRPG
         {
             Globals.Batch.Draw(
                 tiles[baseLayer[y, x]],
-                new Rectangle(x * TileWidth, y * TileHeight, TileWidth, TileHeight),
+                new Rectangle(x * (int)(TileWidth * Scale), y * (int)(TileHeight * Scale), (int)(TileWidth * Scale), (int)(TileHeight * Scale)),
                 Color.White);
         }
 
@@ -951,7 +993,7 @@ namespace ActionRPG
             if (fringeLayer[y, x] != 0)
                 Globals.Batch.Draw(
                 tiles[fringeLayer[y, x]],
-                new Rectangle(x * TileWidth, y * TileHeight, TileWidth, TileHeight),
+                new Rectangle(x * (int)(TileWidth * Scale), y * (int)(TileHeight * Scale), (int)(TileWidth * Scale), (int)(TileHeight * Scale)),
                 Color.White);
         }
 
@@ -966,7 +1008,7 @@ namespace ActionRPG
             if (objectLayer[y, x] != 0)
                 Globals.Batch.Draw(
                 tiles[objectLayer[y, x]],
-                new Rectangle(x * TileWidth, y * TileHeight, TileWidth, TileHeight),
+                new Rectangle(x * (int)(TileWidth * Scale), y * (int)(TileHeight * Scale), (int)(TileWidth * Scale), (int)(TileHeight * Scale)),
                 Color.White);
         }
 
@@ -984,12 +1026,12 @@ namespace ActionRPG
         /// <param name="x">Tile located at X position</param>
         /// <param name="y">Tile located at Y position</param>
         /// <param name="index">new cell index</param>
-        public void SetCellIndex(Enum.MapLayer layer, int x, int y, int index)
+        public void SetCellIndex(MapLayer layer, int x, int y, int index)
         {
             bool setIndex = false;
 
             //if the layer being modified is collision
-            if (layer == Enum.MapLayer.Collision)
+            if (layer == MapLayer.Collision)
             {
                 //if the index is 1 or 0, set bool to true
                 if (index == 1 || index == 0)
@@ -1011,19 +1053,19 @@ namespace ActionRPG
                 //set the appropriate layer's index
                 switch (layer)
                 {
-                    case Enum.MapLayer.Base:
+                    case MapLayer.Base:
                         baseLayer[y, x] = index;
                         break;
 
-                    case Enum.MapLayer.Fringe:
+                    case MapLayer.Fringe:
                         fringeLayer[y, x] = index;
                         break;
 
-                    case Enum.MapLayer.Object:
+                    case MapLayer.Object:
                         objectLayer[y, x] = index;
                         break;
 
-                    case Enum.MapLayer.Collision:
+                    case MapLayer.Collision:
                         collisionLayer[y, x] = index;
                         break;
 
@@ -1134,7 +1176,9 @@ namespace ActionRPG
                 npcs.Add(new NPC());
 
                 //converts the monsters spawn tile to its Vector2 location
-                npcs[npcs.Count - 1].SpawnLocationVector = new Vector2(point.X * TileWidth, point.Y * TileHeight); 
+                npcs[npcs.Count - 1].SpawnLocationVector = new Vector2(point.X * TileWidth, point.Y * TileHeight);
+
+                npcs[npcs.Count - 1].SpawnLocationTile = point;
             }
         }
 
@@ -1151,18 +1195,18 @@ namespace ActionRPG
         #endregion
 
 
-        #region Add / Remove Items
+        #region Add / Remove WorldItems
 
         /// <summary>
-        /// Adds an item to the map
-        /// edit item asset via XML
+        /// Adds an WorldItem to the map
+        /// edit WorldItem asset via XML
         /// </summary>
-        /// <param name="point">tile to add item</param>
-        internal void AddItem(Point point)
+        /// <param name="point">tile to add WorldItem</param>
+        internal void AddWorldItem(Point point)
         {
             bool add = true;
 
-            foreach (Item i in items)
+            foreach (WorldItem i in WorldItems)
             {
                 if (i.SpawnLocationTile == point)
                     add = false;
@@ -1170,12 +1214,12 @@ namespace ActionRPG
 
             if (add)
             {
-                //adds item to items list
-                items.Add(new Item());
+                //adds WorldItem to WorldItems list
+                WorldItems.Add(new WorldItem());
 
-                //converts the items spawn tile to its Vector2 location
-                items[items.Count - 1].SpawnLocationTile = point;
-                items[items.Count - 1].SpawnLocationVector = new Vector2(
+                //converts the WorldItems spawn tile to its Vector2 location
+                WorldItems[WorldItems.Count - 1].SpawnLocationTile = point;
+                WorldItems[WorldItems.Count - 1].SpawnLocationVector = new Vector2(
                     point.X * TileWidth,
                     point.Y * TileHeight); 
             }
@@ -1183,12 +1227,12 @@ namespace ActionRPG
 
 
         /// <summary>
-        /// Adds item to the 'itemsToRemove' list
+        /// Adds WorldItem to the 'WorldItemsToRemove' list
         /// </summary>
-        /// <param name="item">item to be deleted</param>
-        internal void RemoveItem(Item item)
+        /// <param name="WorldItem">WorldItem to be deleted</param>
+        internal void RemoveWorldItem(WorldItem WorldItem)
         {
-            itemsToRemove.Add(item);
+            WorldItemsToRemove.Add(WorldItem);
         }
 
         #endregion
@@ -1219,6 +1263,7 @@ namespace ActionRPG
 
                 //converts the portals spawn tile to its Vector2 location
                 portals[portals.Count - 1].PortalEnteranceTile = point;
+                portals[portals.Count - 1].PortalEnteranceVector = new Vector2(point.X * TileWidth, point.Y * TileHeight);
             }
         }
 
@@ -1238,19 +1283,19 @@ namespace ActionRPG
         /// <summary>
         /// Trashes any objects removed by the user
         /// </summary>
-        internal void TrashDeletedItems()
+        internal void TrashDeletedWorldItems()
         {
             foreach (NPC n in npcsToRemove)
                 npcs.Remove(n);
 
-            foreach (Item i in itemsToRemove)
-                items.Remove(i);
+            foreach (WorldItem i in WorldItemsToRemove)
+                WorldItems.Remove(i);
 
             foreach (Portal p in portalsToRemove)
                 portals.Remove(p);
 
             npcsToRemove.Clear();
-            itemsToRemove.Clear();
+            WorldItemsToRemove.Clear();
             portalsToRemove.Clear();
         }
 

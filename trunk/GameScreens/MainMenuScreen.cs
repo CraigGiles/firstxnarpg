@@ -10,7 +10,7 @@ namespace ActionRPG
 {
     class MainMenuScreen : GameScreen
     {
-        Camera2D camera;
+        
 
         #region Constructor(s)
 
@@ -23,8 +23,6 @@ namespace ActionRPG
         public override void LoadContent()
         {
             this.HasFocus = true;
-            //camera = new Camera2D();
-            //Globals.Camera = camera;
 
             base.LoadContent();
         }
@@ -36,41 +34,52 @@ namespace ActionRPG
 
         #endregion
 
+
         #region Public Methods
+
 
         public override void Update(bool coveredByOtherScreen)
         {
-            //if this screen doesn't have focus
-            if (!this.HasFocus)
-                UpdateIfNotFocused();
-
-            //if this screen does have focus
-            else
-            {
-
-
-
-
-                Globals.TileEngine.Update();
-
-            }
+            if (this.HasFocus)
+                UpdateScreen();
 
             base.Update(coveredByOtherScreen);
         }
 
+
+        private void UpdateScreen()
+        {
+            if (Globals.Input.IsKeyPressed(Keys.Enter))
+                ScreenManager.AddScreen(new MainGameScreen());
+        }
+
+
         public override void Draw()
         {
-            Globals.TileEngine.Draw();
+            Globals.Batch.Begin(SpriteBlendMode.AlphaBlend, SpriteSortMode.Deferred, SaveStateMode.None);
+
+            DrawTextInstructions();
+
+            Globals.Batch.End();
+
             base.Draw();
         }
 
-        #endregion
-
-        #region Private Methods
-
-        private void UpdateIfNotFocused()
+        private void DrawTextInstructions()
         {
+            Globals.Batch.DrawString(Globals.Font, "Enter: Begin Game",
+                new Vector2(10, 10), Color.Yellow, 0f, Vector2.Zero, 3f, SpriteEffects.None, 0f);
+
+            Globals.Batch.DrawString(Globals.Font, "Tilde: Enter Console",
+                new Vector2(10, 50), Color.Yellow, 0f, Vector2.Zero, 3f, SpriteEffects.None, 0f);
+
+            Globals.Batch.DrawString(Globals.Font, "Console: Map_Editor 1 \n Launch Editor",
+                new Vector2(10, 100), Color.Yellow, 0f, Vector2.Zero, 3f, SpriteEffects.None, 0f);
+
+            Globals.Batch.DrawString(Globals.Font, "Game: W.A.S.D. Move",
+                new Vector2(10, 250), Color.Yellow, 0f, Vector2.Zero, 3f, SpriteEffects.None, 0f);
         }
+
 
         #endregion
 

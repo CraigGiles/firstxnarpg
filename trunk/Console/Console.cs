@@ -315,7 +315,7 @@ namespace ActionRPG
                 string tileSet = command.Remove(0, 11).ToLower();
 
                 if (tileSet.ToString().Trim() == "field")
-                    Globals.TileEngine.CreateNewMap(Enum.Tileset.Field);
+                    Globals.TileEngine.CreateNewMap(Tileset.Field);
             }
 
             #endregion
