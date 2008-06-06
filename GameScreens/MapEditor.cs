@@ -17,6 +17,7 @@ namespace ActionRPG
 
         int mouseTileX;
         int mouseTileY;
+        Point mouse;
 
         Texture2D emptyTile,
             textureBorder,
@@ -24,7 +25,7 @@ namespace ActionRPG
             playerRespawn,
             monsterSpawn,
             portal,
-            item;
+            WorldItem;
         
         Texture2D[] previewTextures;
         int previewTextureSize = 48;
@@ -32,7 +33,7 @@ namespace ActionRPG
 
         int newCellIndex = 1;
 
-        public Enum.MapLayer editLayer = Enum.MapLayer.Base;
+        public MapLayer editLayer = MapLayer.Base;
         #endregion
 
 
@@ -64,7 +65,7 @@ namespace ActionRPG
             playerRespawn = Globals.Content.Load<Texture2D>(@"Graphics/MapEditor/PlayerSpawn");
             monsterSpawn = Globals.Content.Load<Texture2D>(@"Graphics/MapEditor/MonsterSpawn");
             portal = Globals.Content.Load<Texture2D>(@"Graphics/MapEditor/portal");
-            item = Globals.Content.Load<Texture2D>(@"Graphics/MapEditor/item");
+            WorldItem = Globals.Content.Load<Texture2D>(@"Graphics/MapEditor/WorldItem");
 
             previewTextures = Globals.TileEngine.Map.Tiles.ToArray();
 
@@ -147,11 +148,11 @@ namespace ActionRPG
             }
             #endregion
 
+            /* Scroll and Zoom Camera*/
+            #region Camera
+
             /* Arrow keys: Scroll Camera or
              * W-A-S-D: Scroll Camera */
-            #region Scroll Camera
-
-
             if (Globals.Input.IsKeyHeld(Keys.Up) || Globals.Input.IsKeyHeld(Keys.W))
                 Globals.Camera.Position.Y += Globals.TileEngine.Map.TileHeight;
             if (Globals.Input.IsKeyHeld(Keys.Down) || Globals.Input.IsKeyHeld(Keys.S))
@@ -161,24 +162,33 @@ namespace ActionRPG
             if (Globals.Input.IsKeyHeld(Keys.Right) || Globals.Input.IsKeyHeld(Keys.D))
                 Globals.Camera.Position.X -= Globals.TileEngine.Map.TileWidth;
 
+            /* Home / End : Zoom Camera */
+            if (Globals.Input.IsKeyHeld(Keys.Home))
+                Globals.TileEngine.Map.Scale += Globals.DeltaTime;
+
+            if (Globals.Input.IsKeyHeld(Keys.End))
+                Globals.TileEngine.Map.Scale -= Globals.DeltaTime;
+
+            /* Reset Camera */
             if (Globals.Input.IsKeyPressed(Keys.Space))
+            {
                 Globals.Camera.Position = new Vector2(0, 0);
+                Globals.TileEngine.Map.Scale = 1.0f;
+            }
 
-
-            #endregion
-
+            #endregion           
 
             /* F1 - F4 selects which layer is being edited */
             #region Select layer to edit
 
             if (Globals.Input.IsKeyPressed(Keys.F1))
-                editLayer = Enum.MapLayer.Base;
+                editLayer = MapLayer.Base;
             if (Globals.Input.IsKeyPressed(Keys.F2))
-                editLayer = Enum.MapLayer.Fringe;
+                editLayer = MapLayer.Fringe;
             if (Globals.Input.IsKeyPressed(Keys.F3))
-                editLayer = Enum.MapLayer.Object;
+                editLayer = MapLayer.Object;
             if (Globals.Input.IsKeyPressed(Keys.F4))
-                editLayer = Enum.MapLayer.Collision;
+                editLayer = MapLayer.Collision;
 
             #endregion
 
@@ -206,9 +216,9 @@ namespace ActionRPG
             if (Globals.Input.IsKeyPressed(Keys.M))
                 Globals.TileEngine.Map.AddNpc(new Point(mouseTileX, mouseTileY));
 
-            /* Add an item spawn */
+            /* Add an WorldItem spawn */
             if (Globals.Input.IsKeyPressed(Keys.I))
-                Globals.TileEngine.Map.AddItem(new Point(mouseTileX, mouseTileY));
+                Globals.TileEngine.Map.AddWorldItem(new Point(mouseTileX, mouseTileY));
 
             /* Add Portal */
             if (Globals.Input.IsKeyPressed(Keys.O))
@@ -221,7 +231,7 @@ namespace ActionRPG
         }
 
         /// <summary>
-        /// Deletes any portals, monsters, items, etc... from tile
+        /// Deletes any portals, monsters, WorldItems, etc... from tile
         /// </summary>
         private void DeleteObjects()
         {
@@ -241,16 +251,16 @@ namespace ActionRPG
             }
 
 
-            //removes any items on current tile
-            foreach (Item i in Globals.TileEngine.Map.Items)
+            //removes any WorldItems on current tile
+            foreach (WorldItem i in Globals.TileEngine.Map.WorldItems)
             {
                 if (i.SpawnLocationTile.X == mouseTileX && i.SpawnLocationTile.Y == mouseTileY)
-                    Globals.TileEngine.Map.RemoveItem(i);
+                    Globals.TileEngine.Map.RemoveWorldItem(i);
             }
 
 
             //Trashes all removed objects.
-            Globals.TileEngine.Map.TrashDeletedItems();
+            Globals.TileEngine.Map.TrashDeletedWorldItems();
 
         }
 
@@ -273,7 +283,7 @@ namespace ActionRPG
 
         private void LeftMouseButton()
         {
-            if (editLayer != Enum.MapLayer.Collision)
+            if (editLayer != MapLayer.Collision)
             {
                 if (CheckForValidClick())
                 {
@@ -283,17 +293,17 @@ namespace ActionRPG
             else
             {
                 if (CheckForValidClick())
-                    Globals.TileEngine.Map.SetCellIndex(Enum.MapLayer.Collision, mouseTileX, mouseTileY, 1);
+                    Globals.TileEngine.Map.SetCellIndex(MapLayer.Collision, mouseTileX, mouseTileY, 1);
             }
         }
 
 
         private void RightMouseButton()
         {
-            if (editLayer == Enum.MapLayer.Collision)
+            if (editLayer == MapLayer.Collision)
             {
                 if (CheckForValidClick())
-                    Globals.TileEngine.Map.SetCellIndex(Enum.MapLayer.Collision, mouseTileX, mouseTileY, 0);
+                    Globals.TileEngine.Map.SetCellIndex(MapLayer.Collision, mouseTileX, mouseTileY, 0);
             }
         }
 
@@ -319,10 +329,10 @@ namespace ActionRPG
             Globals.Batch.Draw(
                 playerRespawn,
                 new Rectangle(
-                    (int)Globals.TileEngine.Map.PlayerRespawnVector.X,
-                    (int)Globals.TileEngine.Map.PlayerRespawnVector.Y,
-                    32,
-                    32),
+                    (int)(Globals.TileEngine.Map.PlayerRespawnVector.X * Globals.TileEngine.Map.Scale),
+                    (int)(Globals.TileEngine.Map.PlayerRespawnVector.Y * Globals.TileEngine.Map.Scale),
+                        (int)(Globals.TileEngine.Map.TileWidth * Globals.TileEngine.Map.Scale),
+                        (int)(Globals.TileEngine.Map.TileWidth * Globals.TileEngine.Map.Scale)),
                 Color.White);
 
             foreach (NPC n in Globals.TileEngine.Map.NPCs)
@@ -330,10 +340,10 @@ namespace ActionRPG
                 Globals.Batch.Draw(
                     monsterSpawn,
                     new Rectangle(
-                        (int)n.SpawnLocationVector.X,
-                        (int)n.SpawnLocationVector.Y,
-                        32,
-                        32),
+                        (int)(n.SpawnLocationVector.X * Globals.TileEngine.Map.Scale),
+                        (int)(n.SpawnLocationVector.Y * Globals.TileEngine.Map.Scale),
+                        (int)(Globals.TileEngine.Map.TileWidth * Globals.TileEngine.Map.Scale),
+                        (int)(Globals.TileEngine.Map.TileWidth * Globals.TileEngine.Map.Scale)),
                     Color.White);
             }
 
@@ -342,22 +352,22 @@ namespace ActionRPG
                 Globals.Batch.Draw(
                     portal,
                     new Rectangle(
-                        (int)p.PortalEnteranceVector.X,
-                        (int)p.PortalEnteranceVector.Y,
-                        32,
-                        32),
+                        (int)(p.PortalEnteranceVector.X * Globals.TileEngine.Map.Scale),
+                        (int)(p.PortalEnteranceVector.Y * Globals.TileEngine.Map.Scale),
+                        (int)(Globals.TileEngine.Map.TileWidth * Globals.TileEngine.Map.Scale),
+                        (int)(Globals.TileEngine.Map.TileWidth * Globals.TileEngine.Map.Scale)),
                     Color.White);
             }
 
-            foreach (Item i in Globals.TileEngine.Map.Items)
+            foreach (WorldItem i in Globals.TileEngine.Map.WorldItems)
             {
                 Globals.Batch.Draw(
-                    item,
+                    WorldItem,
                     new Rectangle(
-                        (int)i.SpawnLocationVector.X,
-                        (int)i.SpawnLocationVector.Y,
-                        32,
-                        32),
+                        (int)(i.SpawnLocationVector.X * Globals.TileEngine.Map.Scale),
+                        (int)(i.SpawnLocationVector.Y * Globals.TileEngine.Map.Scale),
+                        (int)(Globals.TileEngine.Map.TileWidth * Globals.TileEngine.Map.Scale),
+                        (int)(Globals.TileEngine.Map.TileWidth * Globals.TileEngine.Map.Scale)),
                     Color.White);
             }
 
@@ -378,7 +388,7 @@ namespace ActionRPG
             
             Globals.Batch.Begin(SpriteBlendMode.AlphaBlend, SpriteSortMode.Immediate, SaveStateMode.None, Globals.Camera.MapEditorTransformMatrix);
             
-            if (editLayer == Enum.MapLayer.Collision)
+            if (editLayer == MapLayer.Collision)
             {
                 DrawCollisions();
             }
@@ -404,7 +414,11 @@ namespace ActionRPG
                     if (Globals.TileEngine.Map.CollisionLayer[y, x] != 0)
                         Globals.Batch.Draw(
                         unwalkableTile,
-                        new Rectangle(x * Globals.TileEngine.Map.TileWidth, y * Globals.TileEngine.Map.TileHeight, Globals.TileEngine.Map.TileWidth, Globals.TileEngine.Map.TileHeight),
+                        new Rectangle(
+                            x * (int)(Globals.TileEngine.Map.TileWidth * Globals.TileEngine.Map.Scale), 
+                            y * (int)(Globals.TileEngine.Map.TileHeight * Globals.TileEngine.Map.Scale), 
+                            (int)(Globals.TileEngine.Map.TileWidth * Globals.TileEngine.Map.Scale), 
+                            (int)(Globals.TileEngine.Map.TileHeight * Globals.TileEngine.Map.Scale)),
                         Color.Red);
                 }
             }
@@ -417,6 +431,14 @@ namespace ActionRPG
         private void DrawOverlay()
         {
 
+            //ajusts the point by where the camera is. If the camera is at 0,0 it worked
+            // fine, but if you scrolled even 1 tile over, it would go out of bounds.
+            // The following code prevents this.
+            int camXoffset = (int)Globals.Camera.Position.X / Globals.TileEngine.Map.TileWidth;
+            int camYoffset = (int)Globals.Camera.Position.Y / Globals.TileEngine.Map.TileHeight;
+            mouse = new Point(mouseTileX - camXoffset, mouseTileY - camYoffset);
+
+
             #region Mouse Information
             
             
@@ -427,10 +449,10 @@ namespace ActionRPG
 
             /* Draw the red empty tile texture below mouse cursor */
             Globals.Batch.Draw(emptyTile, new Rectangle(
-                Globals.TileEngine.MouseLocation.X * Globals.TileEngine.Map.TileWidth,
-                Globals.TileEngine.MouseLocation.Y * Globals.TileEngine.Map.TileHeight,
-                Globals.TileEngine.Map.TileWidth,
-                Globals.TileEngine.Map.TileHeight),
+                Globals.TileEngine.MouseLocation.X * (int)(Globals.TileEngine.Map.TileWidth * Globals.TileEngine.Map.Scale),
+                Globals.TileEngine.MouseLocation.Y * (int)(Globals.TileEngine.Map.TileHeight * Globals.TileEngine.Map.Scale),
+                (int)(Globals.TileEngine.Map.TileWidth * Globals.TileEngine.Map.Scale),
+                (int)(Globals.TileEngine.Map.TileHeight * Globals.TileEngine.Map.Scale)),
                 Color.Red);
             
 

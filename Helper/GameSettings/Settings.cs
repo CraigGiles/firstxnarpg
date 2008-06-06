@@ -5,11 +5,46 @@ using System.Xml;
 using System.IO;
 
 using Helper;
+using Microsoft.Xna.Framework.Input;
 
 namespace ActionRPG
 {
     public class Settings
     {
+
+        #region Key Bindings
+
+        public Keys MoveDown
+        {
+            get { return down; }
+            set { down = value; }
+        }
+        Keys down = Keys.S;
+
+        public Keys MoveLeft
+        {
+            get { return left; }
+            set { left = value; }
+        }
+        Keys left = Keys.A;
+
+        public Keys MoveUp
+        {
+            get { return up; }
+            set { up = value; }
+        }
+        Keys up = Keys.W;
+
+        public Keys MoveRight
+        {
+            get { return right; }
+            set { right = value; }
+        }
+        Keys right = Keys.D;
+
+        #endregion
+
+
         #region Save Settings
 
 
@@ -55,6 +90,7 @@ namespace ActionRPG
 
 
         #endregion
+
 
         #region Load Settings
 

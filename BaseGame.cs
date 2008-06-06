@@ -23,6 +23,7 @@ namespace ActionRPG
         ScreenManager screenManager;
         SpriteBatch spriteBatch;
         TileEngine tileEngine;
+        Settings settings;
 
         Camera2D camera;
 
@@ -77,6 +78,9 @@ namespace ActionRPG
 
             camera = new Camera2D();
             Globals.Camera = camera;
+
+            settings = new Settings();
+            Globals.Settings = settings;
         }
         
         /// <summary>
@@ -86,7 +90,6 @@ namespace ActionRPG
         {
             screenManager = new ScreenManager();
             screenManager.Initialize(new MainMenuScreen());
-            screenManager.AddScreen(new MapEditor());
         }
 
         /// <summary>

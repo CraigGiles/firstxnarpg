@@ -4,12 +4,29 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Helper;
+using Microsoft.Xna.Framework.Input;
 
 namespace ActionRPG
 {
     public class TileEngine
     {
-        
+
+        #region TileEngine Data
+
+
+        /// <summary>
+        /// Returns if a new map is to be loaded
+        /// via a player stepping onto a portal or 
+        /// other means
+        /// </summary>
+        public bool LoadNewMap
+        {
+            get { return loadNewMap; }
+            set { loadNewMap = value; }
+        }
+        bool loadNewMap = false;
+               
+
         /// <summary>
         /// Map file read into the tile engine
         /// </summary>
@@ -37,6 +54,8 @@ namespace ActionRPG
             }
         }
 
+        #endregion
+
 
         #region Constructor(s)
 
@@ -56,8 +75,9 @@ namespace ActionRPG
 
         #region Update / Draw
 
+
         public void Update()
-        {            
+        {
         }
 
         public void Draw()
@@ -66,6 +86,135 @@ namespace ActionRPG
         }
 
 
+        #endregion
+
+
+        #region Clamp Camera
+
+
+        /// <summary>
+        /// Clamps the camera from going off the edge of the map, and keeps
+        /// the main character centered on the screen
+        /// </summary>
+        /// <param name="playerPosition">Players position vector</param>
+        public void ClampCameraToBoundries(Vector2 position)
+        {
+            //clamps the camera to the players position
+            Globals.Camera.Position.X = position.X - (Globals.Graphics.GraphicsDevice.Viewport.Width / 2);
+            Globals.Camera.Position.Y = position.Y - (Globals.Graphics.GraphicsDevice.Viewport.Height / 2);
+
+            //Clamps the camera within the game screen
+            Globals.Camera.Position.X = MathHelper.Clamp(Globals.Camera.Position.X, 0, (map.Width * map.TileWidth) - Globals.Graphics.GraphicsDevice.Viewport.Width);
+            Globals.Camera.Position.Y = MathHelper.Clamp(Globals.Camera.Position.Y, 0, (map.Height * map.TileHeight) - Globals.Graphics.GraphicsDevice.Viewport.Height);
+        }
+
+        #endregion
+
+
+        #region Player Movement
+
+
+        /// <summary>
+        /// Calculates the characters movement and returns new position vector
+        /// </summary>
+        /// <param name="down">Is character moving down</param>
+        /// <param name="left">Is character moving left</param>
+        /// <param name="up">Is character moving up</param>
+        /// <param name="right">Is character moving right</param>
+        /// <param name="currentPosition">Characters current position vector</param>
+        /// <param name="speedMod">Characters speed modifier</param>
+        /// <returns>Vector2</returns>
+        public Vector2 CalculateCharacterMovement(bool down, bool left, bool up, bool right, Vector2 currentPosition, float speedMod)
+        {
+            Vector2 velocity = Vector2.Zero;
+            Vector2 newPosition = currentPosition;
+
+            if (down)
+                velocity += new Vector2(0 * speedMod, 3 * speedMod);
+
+            if (left)
+                velocity -= new Vector2(3 * speedMod, 0 * speedMod);
+
+            if (up)
+                velocity -= new Vector2(0 * speedMod, 3 * speedMod);
+
+            if (right)
+                velocity += new Vector2(3 * speedMod, 0 * speedMod);
+
+            //Converts the new location to a tile on the map
+            Point currentTile = ConvertPositionToTile(currentPosition += velocity);
+
+            //if the new location is within an unwalkable tile, set velocity to 0
+            if (!IsTileWalkable(currentTile.X, currentTile.Y))
+                velocity = Vector2.Zero;
+
+            newPosition += velocity;
+
+            return newPosition;
+        }
+
+
+        /// <summary>
+        /// Checks to see if player has entered a portal to another map,
+        /// and if so, return the players new position vector on new map
+        /// </summary>
+        /// <param name="position">Players current position vector</param>
+        /// <returns>Vector2</returns>
+        public Vector2 CheckForPortalEntry(Vector2 position)
+        {           
+
+            //converts players new position to a map tile
+            Point playerTile = ConvertPositionToTile(position);
+
+            //checks to see if player is standing on a portal
+            Portal portal = null;
+
+            foreach (Portal p in map.Portals)
+            {
+                if (p.PortalEnteranceTile == playerTile)
+                {
+                    portal = p;
+                    LoadNewMap = true;
+                    break;
+                }
+            }
+
+            if (LoadNewMap)
+            {
+                position = map.PlayerSteppedInPortal(portal);
+                LoadNewMap = false;
+            }
+
+            return position;
+        }
+
+
+        /// <summary>
+        /// Checks if a specific tile is able to be walked on
+        /// </summary>
+        /// <param name="tileX">X location of tile</param>
+        /// <param name="tileY">Y Location of tile</param>
+        /// <returns>bool</returns>
+        public bool IsTileWalkable(int tileX, int tileY)
+        {
+            if (map.CollisionLayer[tileY, tileX] == 0)
+                return true;
+            else
+                return false;
+        }
+        
+
+        /// <summary>
+        /// Converts Vector2 position into a Point tile
+        /// </summary>
+        /// <param name="position">Vector2 position to convert</param>
+        /// <returns>Point</returns>
+        public Point ConvertPositionToTile(Vector2 position)
+        {
+            return new Point(
+                (int)(position.X / (float)map.TileWidth),
+                (int)(position.Y / (float)map.TileHeight));
+        }
 
         #endregion
 
@@ -97,11 +246,11 @@ namespace ActionRPG
         /// Creates a new map
         /// </summary>
         /// <param name="tileSet">Tileset for map to use</param>
-        public void CreateNewMap(Enum.Tileset tileSet)
+        public void CreateNewMap(Tileset tileSet)
         {
             //Unload the current map 
             map.UnloadMap();
-            
+
             //sets the map name and tileset
             map.Name = "NewMap001";
             map.Tileset = tileSet.ToString();
@@ -115,29 +264,12 @@ namespace ActionRPG
 
             //Load tiles from tileset into memory
             map.LoadTileset();
-            
+
         }
 
 
         #endregion
 
-
-
-        public bool IsTileWalkable(int tileX, int tileY)
-        {
-            if (map.CollisionLayer[tileY, tileX] == 0)
-                return true;
-            else
-                return false;
-        }
-
-
-        public Point ConvertPositionToCell(Vector2 position)
-        {
-            return new Point(
-                (int)(position.X / (float)map.TileWidth),
-                (int)(position.Y / (float)map.TileHeight));
-        }
 
     }//end TileEngine
 }//end ShackRPG

@@ -11,7 +11,7 @@ namespace ActionRPG
 		public Vector2 Position = Vector2.Zero;
 
         /// <summary>
-        /// Matrix used for drawing in-game items
+        /// Matrix used for drawing in-game WorldItems
         /// </summary>
         public Matrix TransformMatrix
         {
