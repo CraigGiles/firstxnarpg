@@ -24,26 +24,51 @@
 		<Weapon>RustySword</Weapon>		   
 	</Equipment>
 
-	<Animations>
-		<WalkingDown>
-			<frame index=""  x="" y="" width="" height="" />
-			<frame index=""  x="" y="" width="" height="" />
-			<frame index=""  x="" y="" width="" height="" />
-			<frame index=""  x="" y="" width="" height="" />
-			<frame index=""  x="" y="" width="" height="" />
-			<Interval>0.25</Interval>
-			<Looping>true</Looping>
-		</WalkingDown>
+	<Animation>
+		<Name>Standing</Name>
+		<Direction>Down</Direction>
+		<frame index="0"  x="0" y="0" width="40" height="40" />
+		<frame index="1"  x="0" y="40" width="40" height="40" />
+		<frame index="2"  x="0" y="80" width="40" height="40" />
+		<frame index="3"  x="0" y="120" width="40" height="40" />
+		<frame index="4"  x="0" y="160" width="40" height="40" />
+		<Interval>0.25</Interval>
+		<Looping>true</Looping>
+	</Animation>
+	<Animation>
+		<Name>Standing</Name>
+		<Direction>Left</Direction>
+		<frame index="0"  x="40" y="0" width="40" height="40" />
+		<frame index="1"  x="40" y="40" width="40" height="40" />
+		<frame index="2"  x="40" y="80" width="40" height="40" />
+		<frame index="3"  x="40" y="120" width="40" height="40" />
+		<frame index="4"  x="40" y="160" width="40" height="40" />
+		<Interval>0.25</Interval>
+		<Looping>true</Looping>
+	</Animation>
+	<Animation>
+		<Name>Standing</Name>
+		<Direction>Up</Direction>
+		<frame index="0"  x="80" y="0" width="40" height="40" />
+		<frame index="1"  x="80" y="40" width="40" height="40" />
+		<frame index="2"  x="80" y="80" width="40" height="40" />
+		<frame index="3"  x="80" y="120" width="40" height="40" />
+		<frame index="4"  x="80" y="160" width="40" height="40" />
+		<Interval>0.25</Interval>
+		<Looping>true</Looping>
+	</Animation>
+	<Animation>
+		<Name>Standing</Name>
+		<Direction>Right</Direction>
+		<frame index="0"  x="120" y="0" width="40" height="40" />
+		<frame index="1"  x="120" y="40" width="40" height="40" />
+		<frame index="2"  x="120" y="80" width="40" height="40" />
+		<frame index="3"  x="120" y="120" width="40" height="40" />
+		<frame index="4"  x="120" y="160" width="40" height="40" />
+		<Interval>0.25</Interval>
+		<Looping>true</Looping>
+	</Animation>
 
-		<WalkingLeft>
-			<frame index=""  x="" y="" width="" height="" />
-			<frame index=""  x="" y="" width="" height="" />
-			<frame index=""  x="" y="" width="" height="" />
-			<frame index=""  x="" y="" width="" height="" />
-			<frame index=""  x="" y="" width="" height="" />
-			<Interval>0.25</Interval>
-			<Looping>true</Looping>
-		</WalkingLeft>
-		
-	</Animations>
+
+
 </Player>
