@@ -1,0 +1,49 @@
+﻿<Player>
+	
+	<Asset>Player</Asset>
+	
+	<Stats>
+		<Health>300</Health>
+		<Mana>150</Mana>
+		<Strength>10</Strength>
+		<Stamina>8</Stamina>
+		<Agility>8</Agility>
+		<Dexterity>11</Dexterity>
+		<Intelligence>7</Intelligence>
+		<Wisdom>7</Wisdom>
+	</Stats>
+	
+	<Inventory>
+		<Gold>200</Gold>
+		<Item>CityPass</Item>
+	</Inventory>
+
+	<Equipment>
+		<Armor>WornTunic</Armor>
+		<Accessory>BronzeBand</Accessory>
+		<Weapon>RustySword</Weapon>		   
+	</Equipment>
+
+	<Animations>
+		<WalkingDown>
+			<frame index=""  x="" y="" width="" height="" />
+			<frame index=""  x="" y="" width="" height="" />
+			<frame index=""  x="" y="" width="" height="" />
+			<frame index=""  x="" y="" width="" height="" />
+			<frame index=""  x="" y="" width="" height="" />
+			<Interval>0.25</Interval>
+			<Looping>true</Looping>
+		</WalkingDown>
+
+		<WalkingLeft>
+			<frame index=""  x="" y="" width="" height="" />
+			<frame index=""  x="" y="" width="" height="" />
+			<frame index=""  x="" y="" width="" height="" />
+			<frame index=""  x="" y="" width="" height="" />
+			<frame index=""  x="" y="" width="" height="" />
+			<Interval>0.25</Interval>
+			<Looping>true</Looping>
+		</WalkingLeft>
+		
+	</Animations>
+</Player>

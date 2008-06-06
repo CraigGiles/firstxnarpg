@@ -1,0 +1,25 @@
+﻿<Weapon>
+	<!-- Gear Specific Data -->
+	<Asset>RustySword</Asset>
+	<Description>Dull and rusted</Description>
+	<GraphicIcon>Sword01a</GraphicIcon>
+	<Slot>Weapon</Slot>
+	<Stats>
+		<Health></Health>
+		<Mana></Mana>
+		<Strength></Strength>
+		<Stamina></Stamina>
+		<Agility></Agility>
+		<Dexterity></Dexterity>
+		<Wisdom></Wisdom>
+		<Intelligence></Intelligence>
+		<Haste>1</Haste>
+	</Stats>
+	<GoldValue>10</GoldValue>
+	<Dropable>true</Dropable>
+
+	<!-- Weapon Specific Data -->
+	<Damage>3</Damage>
+	<Delay>7</Delay>
+
+</Weapon>
