@@ -14,6 +14,13 @@ namespace ActionRPG
         public Accessory(string asset)
         {
             Load(asset);
+            Slot = EquipmentSlot.Accessory;
+        }
+
+        public Accessory(string asset, int percent)
+        {
+            Load(asset);
+            this.Percent = percent;
         }
 
         private void Load(string asset)
@@ -22,8 +29,7 @@ namespace ActionRPG
             doc.Load(@"Content/Items/Accessory/" + asset + ".xml");
 
             foreach (XmlNode root in doc.ChildNodes)
-            {                
-                //Put any accessory specific load data here
+            {
             }
 
             base.Load(doc);

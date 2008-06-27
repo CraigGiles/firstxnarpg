@@ -1,9 +1,11 @@
 ﻿<Weapon>
+	
 	<!-- Gear Specific Data -->
 	<Asset>RustySword</Asset>
 	<Description>Dull and rusted</Description>
 	<GraphicIcon>Sword01a</GraphicIcon>
 	<Slot>Weapon</Slot>
+	
 	<Stats>
 		<Health></Health>
 		<Mana></Mana>
@@ -15,11 +17,17 @@
 		<Intelligence></Intelligence>
 		<Haste></Haste>
 	</Stats>
+	
 	<GoldValue>3</GoldValue>
 	<Dropable>true</Dropable>
+	<ItemType>Gear</ItemType>
 
 	<!-- Weapon Specific Data -->
 	<Damage>2</Damage>
-	<Delay>10</Delay>
+	<Range>15</Range>
+	<MaxCombo>5</MaxCombo>
+	
+	<!--UpdateDelay Back To 10 after debug-->
+	<Delay>40</Delay>
 
 </Weapon>

@@ -12,7 +12,7 @@ namespace ActionRPG
     {
 
         #region TileEngine Data
-
+        public static Vector2 Velocity = Vector2.Zero;
 
         /// <summary>
         /// Returns if a new map is to be loaded
@@ -78,6 +78,7 @@ namespace ActionRPG
 
         public void Update()
         {
+            map.TrashDeletedWorldItems();
         }
 
         public void Draw()
@@ -123,34 +124,61 @@ namespace ActionRPG
         /// <param name="right">Is character moving right</param>
         /// <param name="currentPosition">Characters current position vector</param>
         /// <param name="speedMod">Characters speed modifier</param>
-        /// <returns>Vector2</returns>
-        public Vector2 CalculateCharacterMovement(bool down, bool left, bool up, bool right, Vector2 currentPosition, float speedMod)
+        /// <returns>Rectangle: Characters new spritebox</returns>
+        public Rectangle CalculateCharacterMovement(bool down, bool left, bool up, bool right, 
+            Rectangle spriteBox, float speedMod)
         {
             Vector2 velocity = Vector2.Zero;
-            Vector2 newPosition = currentPosition;
 
-            if (down)
-                velocity += new Vector2(0 * speedMod, 3 * speedMod);
+            Vector2 currentPosition = new Vector2(spriteBox.X, spriteBox.Y);
+            Vector2 newPosition = new Vector2(spriteBox.X, spriteBox.Y);
 
+
+
+            if (right)
+                velocity += new Vector2(3 * speedMod, 0 * speedMod);
             if (left)
                 velocity -= new Vector2(3 * speedMod, 0 * speedMod);
 
             if (up)
                 velocity -= new Vector2(0 * speedMod, 3 * speedMod);
+            if (down)
+                velocity += new Vector2(0 * speedMod, 3 * speedMod);
 
-            if (right)
-                velocity += new Vector2(3 * speedMod, 0 * speedMod);
+            velocity = CheckTileCollision(spriteBox, velocity);
+            newPosition += velocity;
+            Velocity = velocity;
 
-            //Converts the new location to a tile on the map
-            Point currentTile = ConvertPositionToTile(currentPosition += velocity);
+            //adjusts the sprite box position based on the new position
+            spriteBox.X = (int)newPosition.X;
+            spriteBox.Y = (int)newPosition.Y;
+            
+            return spriteBox;
+        }
 
-            //if the new location is within an unwalkable tile, set velocity to 0
+
+        /// <summary>
+        /// Checks collisions between character and map tiles
+        /// </summary>
+        /// <param name="spriteBox">Sprite Bounding Box of the character</param>
+        /// <param name="velocity">Characters current Velocity</param>
+        /// <returns>Vector2 position</returns>
+        private Vector2 CheckTileCollision(Rectangle spriteBox, Vector2 velocity)
+        {            
+
+            //Determine where the foot location of the sprite is
+            Vector2 footLocation = new Vector2(
+                spriteBox.X + (spriteBox.Width / 2),
+                spriteBox.Y + (spriteBox.Height - 5));
+
+            //Convert the characters new position to a map tile
+            Point currentTile = ConvertPositionToTile(footLocation += velocity);
+                        
+            //if new tile is walkable, let character move. If not, change velocity to 0
             if (!IsTileWalkable(currentTile.X, currentTile.Y))
                 velocity = Vector2.Zero;
 
-            newPosition += velocity;
-
-            return newPosition;
+            return velocity;
         }
 
 
@@ -160,11 +188,11 @@ namespace ActionRPG
         /// </summary>
         /// <param name="position">Players current position vector</param>
         /// <returns>Vector2</returns>
-        public Vector2 CheckForPortalEntry(Vector2 position)
-        {           
+        public bool CheckForPortalEntry(Vector2 footLocation, out Vector2 newPosition)
+        {
 
             //converts players new position to a map tile
-            Point playerTile = ConvertPositionToTile(position);
+            Point playerTile = ConvertPositionToTile(footLocation);
 
             //checks to see if player is standing on a portal
             Portal portal = null;
@@ -181,11 +209,14 @@ namespace ActionRPG
 
             if (LoadNewMap)
             {
-                position = map.PlayerSteppedInPortal(portal);
+                //footLocation = map.PlayerSteppedInPortal(portal);
                 LoadNewMap = false;
+                newPosition = map.PlayerSteppedInPortal(portal);
+                return true; 
             }
 
-            return position;
+            newPosition = Vector2.Zero;
+            return false;
         }
 
 
@@ -269,7 +300,6 @@ namespace ActionRPG
 
 
         #endregion
-
 
     }//end TileEngine
 }//end ShackRPG

@@ -4,4 +4,5 @@
 	<GraphicIcon>Scroll01a</GraphicIcon>
 	<GoldValue>0</GoldValue>
 	<Dropable>false</Dropable>
+	<ItemType>Quest</ItemType>
 </Item>

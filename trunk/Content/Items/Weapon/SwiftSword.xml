@@ -17,9 +17,11 @@
 	</Stats>
 	<GoldValue>10</GoldValue>
 	<Dropable>true</Dropable>
+	<ItemType>Gear</ItemType>
 
 	<!-- Weapon Specific Data -->
 	<Damage>3</Damage>
-	<Delay>7</Delay>
-
+	<Range>15</Range>
+	<Delay>28</Delay>
+	<MaxCombo>5</MaxCombo>
 </Weapon>

@@ -545,6 +545,15 @@ D:\Programming\Projects\XNA\ActionRPG\bin\x86\Debug\Content\Graphics\Spells\Scro
 D:\Programming\Projects\XNA\ActionRPG\bin\x86\Debug\Content\Graphics\Spells\SmallIcon.xnb
 D:\Programming\Projects\XNA\ActionRPG\bin\x86\Debug\Content\Characters\Player.xml
 D:\Programming\Projects\XNA\ActionRPG\bin\x86\Debug\Content\Characters\TownGuard.xml
-D:\Programming\Projects\XNA\ActionRPG\bin\x86\Debug\Content\Graphics\Characters\TestingPlayer.xnb
 D:\Programming\Projects\XNA\ActionRPG\bin\x86\Debug\Content\Graphics\Characters\Player.xnb
 D:\Programming\Projects\XNA\ActionRPG\bin\x86\Debug\Content\Graphics\Characters\TownGuard.xnb
+D:\Programming\Projects\XNA\ActionRPG\bin\x86\Debug\Content\Graphics\Characters\zPlayer.xnb
+D:\Programming\Projects\XNA\ActionRPG\bin\x86\Debug\Content\Quests\QuestLines\Training.xml
+D:\Programming\Projects\XNA\ActionRPG\bin\x86\Debug\Content\Quests\TrainingNote.xml
+D:\Programming\Projects\XNA\ActionRPG\bin\x86\Debug\Content\Quests\ClearFields.xml
+D:\Programming\Projects\XNA\ActionRPG\bin\x86\Debug\Content\Graphics\Characters\TownGuard2.xnb
+D:\Programming\Projects\XNA\ActionRPG\bin\x86\Debug\Content\Graphics\CharacterEquipment.xnb
+D:\Programming\Projects\XNA\ActionRPG\bin\x86\Debug\Content\Graphics\button.xnb
+D:\Programming\Projects\XNA\ActionRPG\bin\x86\Debug\Content\Graphics\Hand.xnb
+D:\Programming\Projects\XNA\ActionRPG\bin\x86\Debug\Content\Graphics\SelectionIcon.xnb
+D:\Programming\Projects\XNA\ActionRPG\bin\x86\Debug\Content\Graphics\blueBackground.xnb

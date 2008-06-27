@@ -128,8 +128,8 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Graphics\Characters\TestingPlayer.dds">
-      <Name>TestingPlayer</Name>
+    <Compile Include="Graphics\Characters\Player.dds">
+      <Name>Player</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
@@ -209,8 +209,8 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Graphics\Characters\Player.png">
-      <Name>Player</Name>
+    <Compile Include="Graphics\Characters\zPlayer.png">
+      <Name>zPlayer</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
@@ -2821,11 +2821,79 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Graphics\Characters\TownGuard.png">
+    <Compile Include="Graphics\Characters\TownGuard2.png">
+      <Name>TownGuard2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Quests\QuestLines\Training.xml">
+      <Name>Training</Name>
+      <Importer>XmlImporter</Importer>
+      <Processor>PassThroughProcessor</Processor>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Quests\TrainingNote.xml">
+      <Name>TrainingNote</Name>
+      <Importer>XmlImporter</Importer>
+      <Processor>PassThroughProcessor</Processor>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Graphics\Characters\TownGuard.dds">
       <Name>TownGuard</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
+    <None Include="Quests\ClearFields.xml">
+      <Name>ClearFields</Name>
+      <Importer>XmlImporter</Importer>
+      <Processor>PassThroughProcessor</Processor>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Graphics\CharacterEquipment.png">
+      <Name>CharacterEquipment</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Graphics\button.png">
+      <Name>button</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Graphics\Hand.png">
+      <Name>Hand</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Graphics\SelectionIcon.png">
+      <Name>SelectionIcon</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Graphics\blueBackground.png">
+      <Name>blueBackground</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="AI\" />
+    <Folder Include="Graphics\InventoryScreen\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\v2.0\Microsoft.Xna.GameStudio.ContentPipeline.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

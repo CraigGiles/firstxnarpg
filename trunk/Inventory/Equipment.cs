@@ -14,50 +14,10 @@ namespace ActionRPG
         }
 
         #endregion
-        
-
-        #region Unequipped items
-
-
-        /// <summary>
-        /// List of all unequipped armor in inventory
-        /// </summary>
-        public List<Armor> UnEquippedArmor
-        {
-            get { return unEquippedArmor; }
-            set { unEquippedArmor = value; }
-        }
-        List<Armor> unEquippedArmor = new List<Armor>();
-
-
-        /// <summary>
-        /// List of all unequipped weapons in inventory
-        /// </summary>
-        public List<Weapon> UnEquippedWeapons
-        {
-            get { return unEquippedWeapons; }
-            set { unEquippedWeapons = value; }
-        }
-        List<Weapon> unEquippedWeapons = new List<Weapon>();
-
-
-        /// <summary>
-        /// List of all unequipped accessories in inventory
-        /// </summary>
-        public List<Accessory> UnEquippedAccessories
-        {
-            get { return unEquippedAccessories; }
-            set { unEquippedAccessories = value; }
-        }
-        List<Accessory> unEquippedAccessories = new List<Accessory>();
-
-
-        #endregion
 
 
         #region Added stats from equipment
-
-
+        
         /// <summary>
         /// Calculates the added health from all equipped items
         /// </summary>
@@ -109,6 +69,22 @@ namespace ActionRPG
             }
         }
 
+
+        /// <summary>
+        /// Calculates the added sta from all equipped items
+        /// </summary>
+        public int AddedStamina
+        {
+            get
+            {
+                int added = 0;
+                foreach (Gear gear in equippedItems)
+                {
+                    added += gear.AddedStats.Stamina;
+                }
+                return added;
+            }
+        }
 
         /// <summary>
         /// Calculates the added agi from all equipped items
@@ -195,20 +171,62 @@ namespace ActionRPG
         }
 
 
+        /// <summary>
+        /// Calculates the added defense from all equipped items
+        /// </summary>
+        public int Defense
+        {
+            get
+            {
+                int defense = 0;
+
+                foreach (Gear gear in equippedItems)
+                {
+                    if (gear.Slot != EquipmentSlot.Weapon &&
+                        gear.Slot != EquipmentSlot.Accessory)
+                    {
+                        Armor temp = gear as Armor;
+                        defense += temp.Defense;
+                    }
+       
+                }
+                
+                return defense;
+            }
+        }
+
 
         #endregion
 
-
+        
         #region Equipped Items
 
 
+        /// <summary>
+        /// List of equipped items for use when gathering stats
+        /// </summary>
+        public List<Gear> EquippedItems
+        {
+            get { return equippedItems; }            
+        }
+        List<Gear> equippedItems = new List<Gear>();
+
+                
         /// <summary>
         /// Characters helmet equipment
         /// </summary>
         public Armor Helmet
         {
             get { return helmet; }
-            //set { helmet = value; }
+            set 
+            {
+                if (value == null)
+                    equippedItems.Remove(helmet);
+                else
+                    equippedItems.Add(value);
+
+                helmet = value; 
+            }
         }
         Armor helmet;
 
@@ -216,23 +234,39 @@ namespace ActionRPG
         /// <summary>
         /// Characters shoulder equipment
         /// </summary>
-        public Armor Shoulder
+        public Armor Shoulders
         {
-            get { return shoulder; }
-            //set { shoulder = value; }
+            get { return shoulders; }
+            set
+            {
+                if (value == null)
+                    equippedItems.Remove(shoulders);
+                else
+                    equippedItems.Add(value);
+
+                shoulders = value;
+            }
         }
-        Armor shoulder;
+        Armor shoulders;
 
 
         /// <summary>
         /// Characters armplates
         /// </summary>
-        public Armor Arm
+        public Armor Arms
         {
-            get { return arm; }
-            //set { arm = value; }
+            get { return arms; }
+            set
+            {
+                if (value == null)
+                    equippedItems.Remove(arms);
+                else
+                    equippedItems.Add(value);
+
+                arms = value;
+            }
         }
-        Armor arm;
+        Armor arms;
 
 
         /// <summary>
@@ -241,7 +275,15 @@ namespace ActionRPG
         public Armor Gloves
         {
             get { return gloves; }
-            //set { gloves = value; }
+            set
+            {
+                if (value == null)
+                    equippedItems.Remove(gloves);
+                else
+                    equippedItems.Add(value);
+
+                gloves = value;
+            }
         }
         Armor gloves;
 
@@ -252,7 +294,15 @@ namespace ActionRPG
         public Armor Chest
         {
             get { return chest; }
-            //set { chest = value; }
+            set
+            {
+                if (value == null)
+                    equippedItems.Remove(chest);
+                else
+                    equippedItems.Add(value);
+
+                chest = value;
+            }
         }
         Armor chest;
 
@@ -263,7 +313,15 @@ namespace ActionRPG
         public Armor Belt
         {
             get { return belt; }
-            //set { belt = value; }
+            set
+            {
+                if (value == null)
+                    equippedItems.Remove(belt);
+                else
+                    equippedItems.Add(value);
+
+                belt = value;
+            }
         }
         Armor belt;
 
@@ -274,7 +332,15 @@ namespace ActionRPG
         public Armor Legs
         {
             get { return legs; }
-            //set { legs = value; }
+            set
+            {
+                if (value == null)
+                    equippedItems.Remove(legs);
+                else
+                    equippedItems.Add(value);
+
+                legs = value;
+            }
         }
         Armor legs;
 
@@ -285,7 +351,15 @@ namespace ActionRPG
         public Armor Boots
         {
             get { return boots; }
-            //set { boots = value; }
+            set
+            {
+                if (value == null)
+                    equippedItems.Remove(boots);
+                else
+                    equippedItems.Add(value);
+
+                boots = value;
+            }
         }
         Armor boots;
 
@@ -296,7 +370,15 @@ namespace ActionRPG
         public Armor Shield
         {
             get { return shield; }
-            //set { shield = value; }
+            set
+            {
+                if (value == null)
+                    equippedItems.Remove(shield);
+                else
+                    equippedItems.Add(value);
+
+                shield = value;
+            }
         }
         Armor shield;
 
@@ -307,7 +389,15 @@ namespace ActionRPG
         public Weapon Weapon
         {
             get { return weapon; }
-            //set { weapon = value; }
+            set
+            {
+                if (value == null)
+                    equippedItems.Remove(weapon);
+                else
+                    equippedItems.Add(value);
+
+                weapon = value;
+            }
         }
         Weapon weapon;
 
@@ -318,174 +408,47 @@ namespace ActionRPG
         public Accessory Accessory
         {
             get { return accessory; }
-            //set { accessory = value; }
+            set 
+            {
+                if (value == null)
+                    equippedItems.Remove(accessory);
+                else
+                    equippedItems.Add(value);
+
+                accessory = value; 
+            }
         }
         Accessory accessory;
-
-
-        #endregion
-
-
-        #region Equip / Unequip methods
-
-
+        
 
         /// <summary>
-        /// List of equipped items for use when gathering stats
+        /// Returns true if an item is currently equipped
+        /// in the equipment slot
         /// </summary>
-        List<Gear> equippedItems = new List<Gear>();
-
-
-        /// <summary>
-        /// Unequips an item in the selected slot, and places
-        /// that item in the appropriate unequipped list
-        /// </summary>
-        /// <param name="slot">Slot to unequip</param>
-        public void Unequip(EquipmentSlot slot)
+        /// <param name="slot">Slot to check for equipment</param>
+        /// <returns>bool</returns>
+        public bool IsSlotEquipped(EquipmentSlot slot)
         {
-            switch (slot)
+            foreach (Gear item in equippedItems)
             {
-                case EquipmentSlot.Helmet:
-                    if (Helmet != null)
-                        unEquippedArmor.Add(Helmet);
-                    helmet = null;
-                    break;
-
-                case EquipmentSlot.Shoulders:
-                    if (Shoulder != null)
-                        unEquippedArmor.Add(Shoulder);
-                    shoulder = null;
-                    break;
-
-                case EquipmentSlot.Arms:
-                    if (Arm != null)
-                        unEquippedArmor.Add(Arm);
-                    arm = null;
-                    break;
-
-                case EquipmentSlot.Gloves:
-                    if (Gloves != null)
-                        unEquippedArmor.Add(Gloves);
-                    gloves = null;
-                    break;
-
-                case EquipmentSlot.Chest:
-                    if (Chest != null)
-                        unEquippedArmor.Add(Chest);
-                    chest = null;
-                    break;
-
-                case EquipmentSlot.Belt:
-                    if (Belt != null)
-                        unEquippedArmor.Add(Belt);
-                    belt = null;
-                    break;
-
-                case EquipmentSlot.Legs:
-                    if (Legs != null)
-                        unEquippedArmor.Add(Legs);
-                    legs = null;
-                    break;
-
-                case EquipmentSlot.Boots:
-                    if (Boots != null)
-                        unEquippedArmor.Add(Boots);
-                    boots = null;
-                    break;
-
-                case EquipmentSlot.Weapon:
-                    if (Weapon != null)
-                        unEquippedWeapons.Add(Weapon);
-                    weapon = null;
-                    break;
-
-                case EquipmentSlot.Shield:
-                    if (Shield != null)
-                        unEquippedArmor.Add(Shield);
-                    shield = null;
-                    break;
-            }
-        }
-
-
-        /// <summary>
-        /// Equips armor in selected slot
-        /// </summary>
-        /// <param name="armor">Armor to equip</param>
-        public void Equip(Armor armor)
-        {
-            Unequip(armor.Slot);
-
-            switch (armor.Slot)
-            {
-                case EquipmentSlot.Helmet:
-                    helmet = armor;
-                    break;
-
-                case EquipmentSlot.Shoulders:
-                    shoulder = armor;
-                    break;
-
-                case EquipmentSlot.Arms:
-                    arm = armor;
-                    break;
-
-                case EquipmentSlot.Gloves:
-                    gloves = armor;
-                    break;
-
-                case EquipmentSlot.Chest:
-                    chest = armor;
-                    break;
-
-                case EquipmentSlot.Belt:
-                    belt = armor;
-                    break;
-
-                case EquipmentSlot.Legs:
-                    legs = armor;
-                    break;
-
-                case EquipmentSlot.Boots:
-                    boots = armor;
-                    break;
-
-                case EquipmentSlot.Shield:
-                    shield = armor;
-                    break;
+                if (item.Slot == slot)
+                    return true;
             }
 
-            equippedItems.Add(armor);
+            return false;
         }
 
 
-        /// <summary>
-        /// Equips a weapon
-        /// </summary>
-        /// <param name="weapon">Weapon to equip</param>
-        public void Equip(Weapon weapon)
+        public Gear GetEquipmentBySlot(EquipmentSlot slot)
         {
-            Unequip(weapon.Slot);
+            foreach (Gear item in equippedItems)
+            {
+                if (item.Slot == slot)
+                    return item;
+            }
 
-            this.weapon = weapon;
-
-            equippedItems.Add(weapon);
+            return null;
         }
-
-
-        /// <summary>
-        /// Equips an accessory
-        /// </summary>
-        /// <param name="accessory">Accessory to equip</param>
-        public void Equip(Accessory accessory)
-        {
-            Unequip(accessory.Slot);
-
-            this.accessory = accessory;
-
-            equippedItems.Add(accessory);
-        }
-
 
         #endregion
 
