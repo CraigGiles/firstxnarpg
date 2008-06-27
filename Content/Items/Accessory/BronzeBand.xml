@@ -1,8 +1,8 @@
 ﻿<Accessory>
 	<!-- Gear Specific Data -->
-	<Asset>Gems01a</Asset>
+	<Asset>BronzeBand</Asset>
 	<Description>This worn ring looks rusted</Description>
-	<GraphicIcon>Boots01a</GraphicIcon>
+	<GraphicIcon>Gems01a</GraphicIcon>
 	<Slot>Accessory</Slot>
 	<Stats>
 		<Health></Health>
@@ -17,7 +17,7 @@
 	</Stats>
 	<GoldValue>1</GoldValue>
 	<Dropable>true</Dropable>
-
+	<ItemType>Gear</ItemType>
 	<!-- Accessory Specific Data -->
 	
 </Accessory>

@@ -145,12 +145,12 @@ namespace ActionRPG
         /// <summary>
         /// List of Items in the current maps world
         /// </summary>
-        public List<WorldItem> WorldItems
+        public List<Item> WorldItems
         {
             get { return worldItems; }
             set { worldItems = value; }
         }
-        List<WorldItem> worldItems = new List<WorldItem>();
+        List<Item> worldItems = new List<Item>();
 
 
         /// <summary>
@@ -218,7 +218,7 @@ namespace ActionRPG
 
         #region MapEditor Delete Lists
         List<NPC> npcsToRemove = new List<NPC>();
-        List<WorldItem> WorldItemsToRemove = new List<WorldItem>();
+        List<Item> WorldItemsToRemove = new List<Item>();
         List<Portal> portalsToRemove = new List<Portal>();
         #endregion
 
@@ -236,15 +236,15 @@ namespace ActionRPG
             doc.AppendChild(Map);
 
             //Write map information
-            WrWorldItemapName(doc, Map);
-            WrWorldItemapDimensions(doc, Map);
+            WriteMapName(doc, Map);
+            WriteMapDimensions(doc, Map);
             WriteTileSize(doc, Map);
             WriteTileSet(doc, Map);
             WritePlayerRespawn(doc, Map);
             WriteNpcInfo(doc, Map);
             WriteWorldItemInfo(doc, Map);
             WritePortalInfo(doc, Map);
-            WrWorldItemusicCue(doc, Map);
+            WriteMusicCue(doc, Map);
             WriteLayerInfo(doc, Map);
 
             //save map
@@ -348,7 +348,7 @@ namespace ActionRPG
             Map.AppendChild(BaseLayerElement);
         }
 
-        private void WrWorldItemusicCue(XmlDocument doc, XmlElement Map)
+        private void WriteMusicCue(XmlDocument doc, XmlElement Map)
         {
             XmlElement MusicCueElement = doc.CreateElement("MusicCueName");
             MusicCueElement.InnerText = MusicCue;
@@ -396,7 +396,7 @@ namespace ActionRPG
 
         private void WriteWorldItemInfo(XmlDocument doc, XmlElement Map)
         {
-            foreach (WorldItem WorldItem in WorldItems)
+            foreach (Item WorldItem in WorldItems)
             {
                 XmlElement WorldItemElement = doc.CreateElement("WorldItem");
 
@@ -477,14 +477,14 @@ namespace ActionRPG
             Map.AppendChild(TileSizeElement);
         }
 
-        private void WrWorldItemapName(XmlDocument doc, XmlElement Map)
+        private void WriteMapName(XmlDocument doc, XmlElement Map)
         {
             XmlElement Name = doc.CreateElement("Name");
             Name.InnerText = mapName;
             Map.AppendChild(Name);
         }
 
-        private void WrWorldItemapDimensions(XmlDocument doc, XmlElement Map)
+        private void WriteMapDimensions(XmlDocument doc, XmlElement Map)
         {
             XmlElement MapDimensions = doc.CreateElement("MapDimensions");
             XmlNode mapDimensionWidth = doc.CreateElement("Width");
@@ -677,7 +677,7 @@ namespace ActionRPG
 
         private void SetWorldItem(XmlNode node)
         {
-            WorldItems.Add(new WorldItem());
+            WorldItems.Add(new Item());
             Point sLocation = Point.Zero;
 
 
@@ -887,10 +887,10 @@ namespace ActionRPG
 
         private void PopulateWorldItems()
         {
-            foreach (WorldItem WorldItem in WorldItems)
-            {
-                WorldItem.Initialize();
-            }
+            //foreach (Item WorldItem in WorldItems)
+            //{
+            //    WorldItem.Initialize();
+            //}
         }
 
         #endregion
@@ -967,6 +967,8 @@ namespace ActionRPG
                 }
             }
 
+            DrawItems();
+
             Globals.Batch.End();
         }
 
@@ -1010,6 +1012,16 @@ namespace ActionRPG
                 tiles[objectLayer[y, x]],
                 new Rectangle(x * (int)(TileWidth * Scale), y * (int)(TileHeight * Scale), (int)(TileWidth * Scale), (int)(TileHeight * Scale)),
                 Color.White);
+        }
+
+
+        private void DrawItems()
+        {
+            foreach (Item item in worldItems)
+            {
+
+                Globals.Batch.Draw(item.GraphicIcon, item.SpriteBox, Color.White);
+            }
         }
 
 
@@ -1206,7 +1218,7 @@ namespace ActionRPG
         {
             bool add = true;
 
-            foreach (WorldItem i in WorldItems)
+            foreach (Item i in WorldItems)
             {
                 if (i.SpawnLocationTile == point)
                     add = false;
@@ -1215,7 +1227,7 @@ namespace ActionRPG
             if (add)
             {
                 //adds WorldItem to WorldItems list
-                WorldItems.Add(new WorldItem());
+                WorldItems.Add(new Item());
 
                 //converts the WorldItems spawn tile to its Vector2 location
                 WorldItems[WorldItems.Count - 1].SpawnLocationTile = point;
@@ -1230,7 +1242,7 @@ namespace ActionRPG
         /// Adds WorldItem to the 'WorldItemsToRemove' list
         /// </summary>
         /// <param name="WorldItem">WorldItem to be deleted</param>
-        internal void RemoveWorldItem(WorldItem WorldItem)
+        internal void RemoveWorldItem(Item WorldItem)
         {
             WorldItemsToRemove.Add(WorldItem);
         }
@@ -1288,7 +1300,7 @@ namespace ActionRPG
             foreach (NPC n in npcsToRemove)
                 npcs.Remove(n);
 
-            foreach (WorldItem i in WorldItemsToRemove)
+            foreach (Item i in WorldItemsToRemove)
                 WorldItems.Remove(i);
 
             foreach (Portal p in portalsToRemove)
@@ -1300,6 +1312,34 @@ namespace ActionRPG
         }
 
         #endregion
+
+
+        /// <summary>
+        /// Spawns treasure on the map
+        /// </summary>
+        /// <param name="item">Item to spawn</param>
+        /// <param name="location">Location to spawn</param>
+        internal void SpawnTreasure(Item item, Vector2 location)
+        {
+            item.SpawnLocationVector = location;
+            item.SpriteBox = new Rectangle((int)location.X, (int)location.Y, 32, 32);
+            worldItems.Add(item);
+
+        }
+
+
+        /// <summary>
+        /// Spawns treasure on the map
+        /// </summary>
+        /// <param name="asset">Asset name</param>
+        /// <param name="location">Location to spawn treasure</param>
+        internal void SpawnTreasure(string asset, Vector2 location)
+        {
+            worldItems.Add(new Item(asset));
+            worldItems[worldItems.Count - 1].SpawnLocationVector = location;
+            worldItems[worldItems.Count - 1].SpriteBox = new Rectangle((int)location.X, (int)location.Y, 20, 20);
+        }
+
 
     }//end class
 }//end namespace

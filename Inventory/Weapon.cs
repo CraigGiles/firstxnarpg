@@ -16,6 +16,12 @@ namespace ActionRPG
             Load(asset);
         }
 
+        public Weapon(string asset, int percent)
+        {
+            Load(asset);
+            this.Percent = percent;
+        }
+
         private void Load(string asset)
         {
             XmlDocument doc = new XmlDocument();
@@ -29,7 +35,13 @@ namespace ActionRPG
                         damage = int.Parse(node.InnerText);
 
                     if (node.Name == "Delay")
-                        delay = int.Parse(node.InnerText);
+                        delay = (float.Parse(node.InnerText) / 100);
+
+                    if (node.Name == "Range")
+                        range = int.Parse(node.InnerText);
+
+                    if (node.Name == "MaxCombo")
+                        maxCombo = int.Parse(node.InnerText);
                 }
             }
             
@@ -54,12 +66,34 @@ namespace ActionRPG
         /// <summary>
         /// Delay between attacks
         /// </summary>
-        public int Delay
+        public float Delay
         {
             get { return delay; }
             set { delay = value; }
         }
-        int delay;
-        
+        float delay;
+
+
+        /// <summary>
+        /// Max Combo of the weapon
+        /// </summary>
+        public int MaxCombo
+        {
+            get { return maxCombo; }
+            set { maxCombo = value; }
+        }
+        int maxCombo;
+
+        /// <summary>
+        /// Range of the weapon
+        /// </summary>
+        public int Range
+        {
+            get { return range; }
+            set { range = value; }
+        }
+        int range;
+
+
     }
 }

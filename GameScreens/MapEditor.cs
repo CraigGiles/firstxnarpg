@@ -12,13 +12,36 @@ namespace ActionRPG
     {
         #region Data
 
+        /// <summary>
+        /// Is map editor currently active
+        /// </summary>
+        public static bool Active
+        {
+            get { return active; }
+            set { active = value; }
+        }
+        static bool active = false;
 
-        public static bool Active = false;
 
+        /// <summary>
+        /// Current tile on X plane
+        /// </summary>
         int mouseTileX;
+
+        /// <summary>
+        /// Current tile on Y plane
+        /// </summary>
         int mouseTileY;
+
+        /// <summary>
+        /// mouse location in Point form
+        /// </summary>
         Point mouse;
 
+        
+        /// <summary>
+        /// Textures used by the map editor
+        /// </summary>
         Texture2D emptyTile,
             textureBorder,
             unwalkableTile,
@@ -27,19 +50,37 @@ namespace ActionRPG
             portal,
             WorldItem;
         
+        /// <summary>
+        /// Preview textures located at the bottom right corner
+        /// of the screen
+        /// </summary>
         Texture2D[] previewTextures;
+
+        /// <summary>
+        /// Size of the preview texture display
+        /// </summary>
         int previewTextureSize = 48;
 
 
-        int newCellIndex = 1;
+        /// <summary>
+        /// Cell Index used when painting the map
+        /// </summary>
+        int newCellIndex = 0;
 
+        /// <summary>
+        /// Current layer being painted
+        /// </summary>
         public MapLayer editLayer = MapLayer.Base;
+
+
         #endregion
 
 
         #region Constructor(s)
 
-
+        /// <summary>
+        /// Creates a new map editor object
+        /// </summary>
         public MapEditor()
         {
             this.HasFocus = true;
@@ -51,12 +92,18 @@ namespace ActionRPG
         }
 
 
+        /// <summary>
+        /// Unloads all map editor content
+        /// </summary>
         ~MapEditor()
         {
             UnloadContent();
         }
 
 
+        /// <summary>
+        /// Loads all content associated with the map editor
+        /// </summary>
         public override void LoadContent()
         {
             emptyTile = Globals.Content.Load<Texture2D>(@"Graphics/MapEditor/EmptyTile");
@@ -73,6 +120,9 @@ namespace ActionRPG
         }
 
 
+        /// <summary>
+        /// Unloads all content associated with the map editor
+        /// </summary>
         public override void UnloadContent()
         {
             Globals.Game.IsMouseVisible = false;
@@ -82,6 +132,9 @@ namespace ActionRPG
             unwalkableTile = null;
             previewTextures = null;
             playerRespawn = null;
+            monsterSpawn = null;
+            portal = null;
+            WorldItem = null;
 
             base.UnloadContent();
         }
@@ -92,11 +145,19 @@ namespace ActionRPG
 
         #region Update
 
+
+        /// <summary>
+        /// Handles all update logic for Map Editor
+        /// </summary>
+        /// <param name="coveredByOtherScreen">Is map editor covered by another screen</param>
         public override void Update(bool coveredByOtherScreen)
         {
+            //locate the current X and Y tiles for mouse
             mouseTileX = Globals.TileEngine.MouseLocation.X - (int)Globals.Camera.Position.X / Globals.TileEngine.Map.TileWidth;
             mouseTileY = Globals.TileEngine.MouseLocation.Y - (int)Globals.Camera.Position.Y / Globals.TileEngine.Map.TileHeight;
 
+
+            //if map editor has focus, check input for keyboard and mouse
             if (this.HasFocus)
             {
                 CheckKeyboardInput();
@@ -106,12 +167,16 @@ namespace ActionRPG
             base.Update(coveredByOtherScreen);
         }
 
+
         #endregion
 
 
         #region Keyboard Input
 
 
+        /// <summary>
+        /// Checks keyboard for input
+        /// </summary>
         private void CheckKeyboardInput()
         {
             /* Left Alt: This key adjusts the height of the map
@@ -252,7 +317,7 @@ namespace ActionRPG
 
 
             //removes any WorldItems on current tile
-            foreach (WorldItem i in Globals.TileEngine.Map.WorldItems)
+            foreach (Item i in Globals.TileEngine.Map.WorldItems)
             {
                 if (i.SpawnLocationTile.X == mouseTileX && i.SpawnLocationTile.Y == mouseTileY)
                     Globals.TileEngine.Map.RemoveWorldItem(i);
@@ -271,18 +336,28 @@ namespace ActionRPG
         #region Mouse Input
 
 
+        /// <summary>
+        /// Checks mouse for input
+        /// </summary>
         private void CheckMouseInput()
         {
+            //Check left mouse button
             if (Globals.Input.IsMouseButtonHeldLeft())
                 LeftMouseButton();
 
+
+            //check right mouse button
             if (Globals.Input.IsMouseButtonHeldRight())
                 RightMouseButton();
         }
 
 
+        /// <summary>
+        /// Checks left mouse button for click
+        /// </summary>
         private void LeftMouseButton()
         {
+            //if current layer is not Collision, set the new cell index
             if (editLayer != MapLayer.Collision)
             {
                 if (CheckForValidClick())
@@ -290,6 +365,8 @@ namespace ActionRPG
                     Globals.TileEngine.Map.SetCellIndex(editLayer, mouseTileX, mouseTileY, newCellIndex);
                 }
             }
+
+            //if current layer IS collision, add collision to tile
             else
             {
                 if (CheckForValidClick())
@@ -298,8 +375,12 @@ namespace ActionRPG
         }
 
 
+        /// <summary>
+        /// Checks right mouse button for click
+        /// </summary>
         private void RightMouseButton()
         {
+            //if current layer is collision, remove collision from tile
             if (editLayer == MapLayer.Collision)
             {
                 if (CheckForValidClick())
@@ -308,6 +389,11 @@ namespace ActionRPG
         }
 
 
+        /// <summary>
+        /// Checks mouse location for validity. Ensures mouse is not 
+        /// clicked outside of map boundries
+        /// </summary>
+        /// <returns>bool</returns>
         private bool CheckForValidClick()
         {
             return mouseTileX >= 0 && mouseTileX < Globals.TileEngine.Map.Width &&
@@ -321,11 +407,15 @@ namespace ActionRPG
         #region Draw
 
 
+        /// <summary>
+        /// Renders map editor to screen
+        /// </summary>
         public override void Draw()
         {
-            //Draws the player respawn icon 
+            //Use map editor transform matrix in camera settings 
             Globals.Batch.Begin(SpriteBlendMode.AlphaBlend, SpriteSortMode.Immediate, SaveStateMode.None, Globals.Camera.MapEditorTransformMatrix);
-            
+
+            //Draws the player respawn icon 
             Globals.Batch.Draw(
                 playerRespawn,
                 new Rectangle(
@@ -335,6 +425,7 @@ namespace ActionRPG
                         (int)(Globals.TileEngine.Map.TileWidth * Globals.TileEngine.Map.Scale)),
                 Color.White);
 
+            //for every NPC on current map, draw the NPC icon
             foreach (NPC n in Globals.TileEngine.Map.NPCs)
             {
                 Globals.Batch.Draw(
@@ -347,6 +438,7 @@ namespace ActionRPG
                     Color.White);
             }
 
+            // for every portal on map, draw portal icon
             foreach (Portal p in Globals.TileEngine.Map.Portals)
             {
                 Globals.Batch.Draw(
@@ -359,7 +451,8 @@ namespace ActionRPG
                     Color.White);
             }
 
-            foreach (WorldItem i in Globals.TileEngine.Map.WorldItems)
+            //for every world item on map (chests, etc) draw item icon
+            foreach (Item i in Globals.TileEngine.Map.WorldItems)
             {
                 Globals.Batch.Draw(
                     WorldItem,
@@ -374,9 +467,13 @@ namespace ActionRPG
             Globals.Batch.End();
 
 
+            //start new spritebatch without the map editor transform matrix
             Globals.Batch.Begin(SpriteBlendMode.AlphaBlend, SpriteSortMode.Immediate, SaveStateMode.None);
             
+            //draws text overlay HUD
             DrawOverlay();
+
+            //draws preview textures
             DrawPreviewTextures();
 
             Globals.Batch.End();
@@ -505,6 +602,7 @@ namespace ActionRPG
             /* *  *  *  *  *  *  *  *  *  *  *  * 
              * Previous Texture
              * * * * * * * * * * * * * * * * * */
+            #region Previous
             if (newCellIndex != 0)
                 Globals.Batch.Draw(previewTextures[newCellIndex - 1],
                     new Rectangle(
@@ -534,10 +632,13 @@ namespace ActionRPG
                         Globals.Graphics.GraphicsDevice.Viewport.Width - 143,
                         (Globals.Graphics.GraphicsDevice.Viewport.Height - 135) + (0 * previewTextureSize)),
                 Color.LightGreen);
+            #endregion
+
 
             /* *  *  *  *  *  *  *  *  *  *  *  * 
              * Currently Selected Texture
              * * * * * * * * * * * * * * * * * */
+            #region Current
             Globals.Batch.Draw(previewTextures[newCellIndex],
                     new Rectangle(
                         Globals.Graphics.GraphicsDevice.Viewport.Width - 50,
@@ -558,11 +659,13 @@ namespace ActionRPG
                             Globals.Graphics.GraphicsDevice.Viewport.Width - 135,
                             (Globals.Graphics.GraphicsDevice.Viewport.Height - 135) + (1 * previewTextureSize)),
                     Color.LightGreen);
+            #endregion
 
 
             /* *  *  *  *  *  *  *  *  *  *  *  * 
              * Next Texture
              * * * * * * * * * * * * * * * * * */
+            #region Next
             if (newCellIndex != previewTextures.Length - 1)
                 Globals.Batch.Draw(previewTextures[newCellIndex + 1],
                     new Rectangle(
@@ -591,6 +694,7 @@ namespace ActionRPG
                         Globals.Graphics.GraphicsDevice.Viewport.Width - 110,
                         (Globals.Graphics.GraphicsDevice.Viewport.Height - 135) + (2 * previewTextureSize)),
                 Color.LightGreen);
+            #endregion
 
         }
 

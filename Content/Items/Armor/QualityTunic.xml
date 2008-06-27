@@ -17,6 +17,7 @@
 	</Stats>
 	<GoldValue>3</GoldValue>
 	<Dropable>true</Dropable>
+	<ItemType>Gear</ItemType>
 
 	<!-- Armor Specific Data -->
 	<Defense>3</Defense>

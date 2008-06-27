@@ -1,23 +1,23 @@
 ﻿<Accessory>
 	<!-- Gear Specific Data -->
-	<Asset>Gems01c</Asset>
+	<Asset>GoldBand</Asset>
 	<Description>Bling Bling</Description>
-	<GraphicIcon>Boots01a</GraphicIcon>
+	<GraphicIcon>Gems01a</GraphicIcon>
 	<Slot>Accessory</Slot>
 	<Stats>
 		<Health></Health>
 		<Mana></Mana>
 		<Strength></Strength>
-		<Stamina>3</Stamina>
+		<Stamina>2</Stamina>
 		<Agility></Agility>
 		<Dexterity></Dexterity>
 		<Wisdom></Wisdom>
 		<Intelligence></Intelligence>
 		<Haste></Haste>
 	</Stats>
-	<GoldValue>1</GoldValue>
+	<GoldValue>2</GoldValue>
 	<Dropable>true</Dropable>
-
+	<ItemType>Gear</ItemType>
 	<!-- Accessory Specific Data -->
-	
+
 </Accessory>

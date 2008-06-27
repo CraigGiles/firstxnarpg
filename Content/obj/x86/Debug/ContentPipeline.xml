@@ -4709,31 +4709,85 @@
       <Time>2008-06-05T16:47:13.889625-07:00</Time>
     </Item>
     <Item>
-      <Source>Graphics\Characters\TestingPlayer.dds</Source>
-      <Name>Graphics\Characters\TestingPlayer</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <Options>None</Options>
-      <Output>D:\Programming\Projects\XNA\ActionRPG\bin\x86\Debug\Content\Graphics\Characters\TestingPlayer.xnb</Output>
-      <Time>2008-05-25T10:14:45.572875-07:00</Time>
-    </Item>
-    <Item>
-      <Source>Graphics\Characters\Player.png</Source>
+      <Source>Graphics\Characters\Player.dds</Source>
       <Name>Graphics\Characters\Player</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>D:\Programming\Projects\XNA\ActionRPG\bin\x86\Debug\Content\Graphics\Characters\Player.xnb</Output>
+      <Time>2008-05-25T10:14:45.572875-07:00</Time>
+    </Item>
+    <Item>
+      <Source>Graphics\Characters\zPlayer.png</Source>
+      <Name>Graphics\Characters\zPlayer</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Programming\Projects\XNA\ActionRPG\bin\x86\Debug\Content\Graphics\Characters\zPlayer.xnb</Output>
       <Time>2008-06-03T10:20:55.0625-07:00</Time>
     </Item>
     <Item>
-      <Source>Graphics\Characters\TownGuard.png</Source>
+      <Source>Graphics\Characters\TownGuard2.png</Source>
+      <Name>Graphics\Characters\TownGuard2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Programming\Projects\XNA\ActionRPG\bin\x86\Debug\Content\Graphics\Characters\TownGuard2.xnb</Output>
+      <Time>2008-06-05T20:40:05.295875-07:00</Time>
+    </Item>
+    <Item>
+      <Source>Graphics\Characters\TownGuard.dds</Source>
       <Name>Graphics\Characters\TownGuard</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>D:\Programming\Projects\XNA\ActionRPG\bin\x86\Debug\Content\Graphics\Characters\TownGuard.xnb</Output>
-      <Time>2008-06-05T20:40:05.295875-07:00</Time>
+      <Time>2008-06-13T12:25:31.375-07:00</Time>
+    </Item>
+    <Item>
+      <Source>Graphics\CharacterEquipment.png</Source>
+      <Name>Graphics\CharacterEquipment</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Programming\Projects\XNA\ActionRPG\bin\x86\Debug\Content\Graphics\CharacterEquipment.xnb</Output>
+      <Time>2008-06-14T10:39:11.0625-07:00</Time>
+    </Item>
+    <Item>
+      <Source>Graphics\button.png</Source>
+      <Name>Graphics\button</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Programming\Projects\XNA\ActionRPG\bin\x86\Debug\Content\Graphics\button.xnb</Output>
+      <Time>2008-06-18T14:16:39.17175-07:00</Time>
+    </Item>
+    <Item>
+      <Source>Graphics\Hand.png</Source>
+      <Name>Graphics\Hand</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Programming\Projects\XNA\ActionRPG\bin\x86\Debug\Content\Graphics\Hand.xnb</Output>
+      <Time>2008-06-18T14:54:26.6405-07:00</Time>
+    </Item>
+    <Item>
+      <Source>Graphics\SelectionIcon.png</Source>
+      <Name>Graphics\SelectionIcon</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Programming\Projects\XNA\ActionRPG\bin\x86\Debug\Content\Graphics\SelectionIcon.xnb</Output>
+      <Time>2008-06-18T16:46:34.218625-07:00</Time>
+    </Item>
+    <Item>
+      <Source>Graphics\blueBackground.png</Source>
+      <Name>Graphics\blueBackground</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Programming\Projects\XNA\ActionRPG\bin\x86\Debug\Content\Graphics\blueBackground.xnb</Output>
+      <Time>2008-06-18T17:30:35.04675-07:00</Time>
     </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>

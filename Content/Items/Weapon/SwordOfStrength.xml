@@ -1,13 +1,13 @@
 ﻿<Weapon>
 	<!-- Gear Specific Data -->
-	<Asset>RustySword</Asset>
+	<Asset>SwordOfStrength</Asset>
 	<Description>Dull and rusted</Description>
 	<GraphicIcon>Sword01a</GraphicIcon>
 	<Slot>Weapon</Slot>
 	<Stats>
 		<Health></Health>
 		<Mana></Mana>
-		<Strength></Strength>
+		<Strength>2</Strength>
 		<Stamina></Stamina>
 		<Agility></Agility>
 		<Dexterity></Dexterity>
@@ -17,9 +17,11 @@
 	</Stats>
 	<GoldValue>15</GoldValue>
 	<Dropable>true</Dropable>
+	<ItemType>Gear</ItemType>
 
 	<!-- Weapon Specific Data -->
 	<Damage>5</Damage>
-	<Delay>8</Delay>
-
+	<Range>15</Range>
+	<Delay>35</Delay>
+	<MaxCombo>8</MaxCombo>
 </Weapon>

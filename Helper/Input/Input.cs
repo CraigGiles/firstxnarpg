@@ -29,6 +29,11 @@ namespace Helper
         MouseInput mouse = new MouseInput();
 
         /// <summary>
+        /// Gamepad object
+        /// </summary>
+        GamePadInput gamePad = new GamePadInput();
+
+        /// <summary>
         /// Updates the user input for this frame
         /// </summary>
         public void GetUserInput(GameTime gameTime)
@@ -37,6 +42,26 @@ namespace Helper
 
             keyboard.Update();
             mouse.Update();
+            gamePad.Update();
+        }
+        public bool IsButtonPressed(Buttons button)
+        {
+            return gamePad.IsButtonPressed(button);
+        }
+
+        public bool IsButtonHeld(Buttons button)
+        {
+            return gamePad.IsButtonHeld(button);
+        }
+
+        public bool IsLeftThumbstickHeld()
+        {
+            return gamePad.LeftThumbstickHeld();
+        }
+
+        public Vector2 LeftThumbstick()
+        {
+            return gamePad.LeftThumbstick * 3;
         }
 
         #region Mouse

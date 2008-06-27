@@ -6,52 +6,50 @@ using System.Xml;
 
 namespace ActionRPG
 {
-    public class Gear
+    public class Gear : Item
     {
 
-        /// <summary>
-        /// Objects Asset name
-        /// </summary>
-        public string AssetName
-        {
-            get { return assetName; }
-            set { assetName = value; }
-        }
-        string assetName;
+
 
 
         /// <summary>
-        /// Objects description
+        /// Returns what type of equpiment (Armor, Accessory, Weapon)
         /// </summary>
-        public string Description
+        public EquipmentType GetEquipmentType
         {
-            get { return description; }
-            set { description = value; }
+            get
+            {
+                if (Slot == EquipmentSlot.Accessory)
+                    return EquipmentType.Accessory;
+
+                else if (
+                     Slot == EquipmentSlot.Arms ||
+                     Slot == EquipmentSlot.Belt ||
+                     Slot == EquipmentSlot.Boots ||
+                     Slot == EquipmentSlot.Chest ||
+                     Slot == EquipmentSlot.Gloves ||
+                     Slot == EquipmentSlot.Helmet ||
+                     Slot == EquipmentSlot.Legs ||
+                     Slot == EquipmentSlot.Shield ||
+                     Slot == EquipmentSlot.Shoulders)
+                {
+                    return EquipmentType.Armor;
+                }
+
+                else
+                    return EquipmentType.Weapon;
+            }
         }
-        string description;
 
-
-        /// <summary>
-        /// Objects icon graphic
-        /// </summary>
-        public Texture2D GraphicIcon
-        {
-            get { return graphicIcon; }
-            set { graphicIcon = value; }
-        }
-        Texture2D graphicIcon;
-
-
-        /// <summary>
-        /// Get or set the objects slot used to equip
-        /// this item.
-        /// </summary>
-        public EquipmentSlot Slot
-        {
-            get { return slot; }
-            set { slot = value; }
-        }
-        EquipmentSlot slot;
+        ///// <summary>
+        ///// Returns what type of equpiment (Armor, Accessory, Weapon)
+        ///// </summary>
+        //EquipmentType Type
+        //{
+        //    get { return type; }
+        //    set { type = value; }
+        //}
+        //EquipmentType type;
 
 
         /// <summary>
@@ -65,27 +63,6 @@ namespace ActionRPG
         StatisticsValue addedStats = new StatisticsValue();
 
 
-        /// <summary>
-        /// Objects value in gold
-        /// </summary>
-        public int GoldValue
-        {
-            get { return goldValue; }
-            set { goldValue = value; }
-        }
-        int goldValue;
-
-
-        /// <summary>
-        /// Can the object be dropped
-        /// </summary>
-        public bool Dropable
-        {
-            get { return dropable; }
-            set { dropable = value; }
-        }
-        bool dropable;
-
 
         #region Load Gear
 
@@ -97,28 +74,52 @@ namespace ActionRPG
                 foreach (XmlNode node in root.ChildNodes)
                 {
                     if (node.Name == "Asset")
-                        assetName = node.InnerText;
+                        AssetName = node.InnerText;
 
                     if (node.Name == "Description")
-                        description = node.InnerText;
+                        Description = node.InnerText;
 
                     if (node.Name == "GraphicIcon")
-                        graphicIcon = LoadTexture(node.InnerText);
+                        GraphicIcon = LoadTexture(node.InnerText);
 
                     if (node.Name == "Slot")
-                        slot = LoadSlot(node.InnerText);
+                        Slot = LoadSlot(node.InnerText);
 
                     if (node.Name == "Stats")
                         LoadStats(node);
 
                     if (node.Name == "GoldValue")
-                        goldValue = int.Parse(node.InnerText);
+                        GoldValue = int.Parse(node.InnerText);
 
                     if (node.Name == "Dropable")
-                        dropable = bool.Parse(node.InnerText);
+                        Dropable = bool.Parse(node.InnerText);
+
+                    if (node.Name == "ItemType")
+                        ItemType = GetItemType(node.InnerText);
+
                 }//end child nodes 
             }
 
+        }
+
+        private ItemType GetItemType(string type)
+        {
+            switch (type)
+            {
+                case ("Item"):
+                    return ItemType.Item;
+                    break;
+
+                case ("Gear"):
+                    return ItemType.Gear;
+                    break;
+
+                case ("Quest"):
+                    return ItemType.Quest;
+                    break;
+            }
+
+            return ItemType.Item;
         }
 
 
@@ -178,7 +179,7 @@ namespace ActionRPG
 
         private EquipmentSlot LoadSlot(string slot)
         {
-            EquipmentSlot equipmentSlot = EquipmentSlot.Inventory;
+            EquipmentSlot equipmentSlot = EquipmentSlot.Helmet;
 
             switch (slot)
             {
@@ -222,8 +223,8 @@ namespace ActionRPG
                     equipmentSlot = EquipmentSlot.Shield;
                     break;
 
-                case ("Inventory"):
-                    equipmentSlot = EquipmentSlot.Inventory;
+                case ("Accessory"):
+                    equipmentSlot = EquipmentSlot.Accessory;
                     break;
 
             }
@@ -238,6 +239,7 @@ namespace ActionRPG
         }
 
         #endregion
+
 
 
     }//end class

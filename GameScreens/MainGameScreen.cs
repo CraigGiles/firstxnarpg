@@ -12,7 +12,7 @@ namespace ActionRPG
     {
 
         Player player = new Player();
-
+        DialogManager dialog = new DialogManager();
 
         #region Constructor(s)
 
@@ -47,9 +47,16 @@ namespace ActionRPG
         public override void Update(bool coveredByOtherScreen)
         {
             if (this.HasFocus)
+            {
+                CheckButtonPress();                
+            }
+
+            //if map editor is NOT active, update game
+            if (!MapEditor.Active)
+            {
                 UpdateScreen();
-
-
+                UpdateDialogs();
+            }
 
             base.Update(coveredByOtherScreen);
         }
@@ -60,19 +67,155 @@ namespace ActionRPG
         /// </summary>
         private void UpdateScreen()
         {
-            //update player
+            //Update player
             player.Update();
 
-            foreach (NPC npc in Globals.TileEngine.Map.NPCs)
-                npc.Update();
+            //Updates all NPCs on screen
+            UpdateNpcCharacters();
 
+            //Checks for collisions
+            CheckCollisions();
+
+            //update Text Animations
+            TextManager.Update();
 
             //update tile engine
             Globals.TileEngine.Update();
             Globals.TileEngine.ClampCameraToBoundries(player.Origin);
+
+            ClearUnusedResources();
         }
 
+
+        private void UpdateDialogs()
+        {
+
+        }
+
+
+        private void CheckButtonPress()
+        {
+            if (Globals.Input.IsKeyPressed(Globals.Settings.Inventory) ||
+                Globals.Input.IsButtonPressed(Globals.Settings.GamePadInventory))
+            {
+                ScreenManager.AddScreen(new GameMenu(player));
+            }
+
+            else if (Globals.Input.IsKeyPressed(Globals.Settings.Okay) ||
+                Globals.Input.IsButtonPressed(Buttons.A))
+            {
+                foreach (NPC npc in Globals.TileEngine.Map.NPCs)
+                {
+                    if (AreWithinRange(player, npc))
+                    {
+                        //start new dialog
+                    }
+                }
+
+                foreach (Item item in Globals.TileEngine.Map.WorldItems)
+                {
+                }
+
+
+                //check distance between player and objects
+                //if object is within X distance
+                    //execute objects "okay" setting (merchant, talk, pickup, etc)
+            }
+        }
+
+
+        /// <summary>
+        /// Updates all NPC character logic
+        /// </summary>
+        private void UpdateNpcCharacters()
+        {
+            foreach (NPC npc in Globals.TileEngine.Map.NPCs)
+            {
+                npc.Update(player);
+
+            } 
+
+
+        }
+
+
+        /// <summary>
+        /// Checks for collisions between characters and objects
+        /// </summary>
+        private void CheckCollisions()
+        {
+            CheckNpcCollision();
+            CheckItemCollision();
+        }
+
+
+        /// <summary>
+        /// Checks for a collision between characters on screen
+        /// </summary>
+        private void CheckNpcCollision()
+        {
+            foreach (NPC npc in Globals.TileEngine.Map.NPCs)
+            {
+                if (AreColliding(player, npc))
+                {
+                    Vector2 d = Vector2.Normalize(npc.FootLocation - player.FootLocation);
+
+                    player.Origin =
+                        npc.Origin - (d * (player.CollisionRadius + npc.CollisionRadius));
+                }
+            }
+        }
         
+
+        /// <summary>
+        /// Returns true if two characters are colliding
+        /// </summary>
+        /// <param name="a">Character A</param>
+        /// <param name="b">Character B</param>
+        /// <returns>bool</returns>
+        private bool AreColliding(Character a, Character b)
+        {
+            Vector2 d = b.FootLocation - a.FootLocation;
+
+            return (d.Length() < b.CollisionRadius + a.CollisionRadius);
+        }
+
+
+        private bool AreWithinRange(Character a, Character b)
+        {
+            Vector2 d = b.FootLocation - a.FootLocation;
+
+            return (d.Length() < b.InteractionRadius + a.InteractionRadius);
+        }
+
+        /// <summary>
+        /// Checks collision between player and world items.
+        /// </summary>
+        private void CheckItemCollision()
+        {
+            foreach (Item i in Globals.TileEngine.Map.WorldItems)
+            {
+                Vector2 d = player.FootLocation - i.Origin;
+
+                if (d.Length() < player.CollisionRadius * 1f)
+                {
+                    //TODO; pop up msgbox stating what you just picked up                    
+                    //ScreenManager.AddScreen(new MessageBox("Gained: " + i.AssetName, 3f));
+
+                    Vector2 textLocation = player.Origin - new Vector2(0, player.SpriteManager.SpriteBox.Height / 2);
+
+                    Globals.TileEngine.Map.RemoveWorldItem(i);
+                    player.Inventory.AddItem(i, textLocation);
+                }
+            }
+        }
+
+
+        private void ClearUnusedResources()
+        {
+
+        }
+
         #endregion
 
 
@@ -96,12 +239,18 @@ namespace ActionRPG
         /// </summary>
         private void RenderGame()
         {
-            Globals.Batch.Begin(SpriteBlendMode.AlphaBlend, SpriteSortMode.Deferred, SaveStateMode.None, Globals.Camera.TransformMatrix);
+            Globals.Batch.Begin(
+                SpriteBlendMode.AlphaBlend, SpriteSortMode.Deferred, 
+                SaveStateMode.None, Globals.Camera.TransformMatrix);
+
+            
+            foreach (NPC npc in Globals.TileEngine.Map.NPCs)
+                npc.Draw();
 
             player.Draw();
 
-            foreach (NPC npc in Globals.TileEngine.Map.NPCs)
-                npc.Draw();
+            //draws text animations
+            TextManager.Draw();
 
             Globals.Batch.End();
         }

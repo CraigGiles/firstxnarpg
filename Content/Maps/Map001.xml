@@ -16,7 +16,12 @@
 	<NPC>
 		<Asset>TownGuard</Asset>
 		<X>24</X>
-		<Y>2</Y>
+		<Y>8</Y>
+	</NPC>
+	<NPC>
+		<Asset>TownGuard</Asset>
+		<X>14</X>
+		<Y>15</Y>
 	</NPC>
 	<Portal>
 		<Enterance>

@@ -17,6 +17,10 @@ namespace ActionRPG
         public static Helper.Input Input;
 
         public static GameTime GameTime;
+
+        /// <summary>
+        /// Total Seconds Elapsed
+        /// </summary>
         public static float DeltaTime;
 
         public static TileEngine TileEngine;
@@ -24,8 +28,8 @@ namespace ActionRPG
 
         public static Settings Settings;
 
+        public const int StatCap = 999;
 
-
-        public const int StatCap = 99;
+        public static Battle Battle;
     }
 }

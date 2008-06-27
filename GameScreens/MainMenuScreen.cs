@@ -49,7 +49,8 @@ namespace ActionRPG
 
         private void UpdateScreen()
         {
-            if (Globals.Input.IsKeyPressed(Keys.Enter))
+            if (Globals.Input.IsKeyPressed(Keys.Enter) ||
+                Globals.Input.IsButtonPressed(Buttons.Start))
                 ScreenManager.AddScreen(new MainGameScreen());
         }
 

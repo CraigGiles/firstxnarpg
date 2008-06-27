@@ -5,7 +5,7 @@
 	<Stats>
 		<Health>300</Health>
 		<Mana>150</Mana>
-		<Strength>10</Strength>
+		<Strength>100</Strength>
 		<Stamina>8</Stamina>
 		<Agility>8</Agility>
 		<Dexterity>11</Dexterity>
@@ -24,51 +24,283 @@
 		<Weapon>RustySword</Weapon>		   
 	</Equipment>
 
-	<Animation>
-		<Name>Standing</Name>
-		<Direction>Down</Direction>
-		<frame index="0"  x="0" y="0" width="40" height="40" />
-		<frame index="1"  x="0" y="40" width="40" height="40" />
-		<frame index="2"  x="0" y="80" width="40" height="40" />
-		<frame index="3"  x="0" y="120" width="40" height="40" />
-		<frame index="4"  x="0" y="160" width="40" height="40" />
-		<Interval>0.25</Interval>
-		<Looping>true</Looping>
+	<Sprite width="60" height="60" />
+	
+	<!-- Standing -->
+	<Animation Name="Standing" Direction="Down">
+		<Frame index="0"  x="0" y="0" width="40" height="40" />
+		<Frame index="1"  x="0" y="40" width="40" height="40" />
+		<Frame index="2"  x="0" y="80" width="40" height="40" />
+		<Frame index="3"  x="0" y="120" width="40" height="40" />
+		<Frame index="4"  x="0" y="160" width="40" height="40" />
+		<Interval>1</Interval>
+		<IsLoop>true</IsLoop>
+		<PauseAtEnd>false</PauseAtEnd>
 	</Animation>
-	<Animation>
-		<Name>Standing</Name>
-		<Direction>Left</Direction>
-		<frame index="0"  x="40" y="0" width="40" height="40" />
-		<frame index="1"  x="40" y="40" width="40" height="40" />
-		<frame index="2"  x="40" y="80" width="40" height="40" />
-		<frame index="3"  x="40" y="120" width="40" height="40" />
-		<frame index="4"  x="40" y="160" width="40" height="40" />
-		<Interval>0.25</Interval>
-		<Looping>true</Looping>
+	<Animation Name="Standing" Direction="Left">
+		<Frame index="0"  x="40" y="0" width="40" height="40" />
+		<Frame index="1"  x="40" y="40" width="40" height="40" />
+		<Frame index="2"  x="40" y="80" width="40" height="40" />
+		<Frame index="3"  x="40" y="120" width="40" height="40" />
+		<Frame index="4"  x="40" y="160" width="40" height="40" />
+		<Interval>1</Interval>
+		<IsLoop>true</IsLoop>
+		<PauseAtEnd>false</PauseAtEnd>
 	</Animation>
-	<Animation>
-		<Name>Standing</Name>
-		<Direction>Up</Direction>
-		<frame index="0"  x="80" y="0" width="40" height="40" />
-		<frame index="1"  x="80" y="40" width="40" height="40" />
-		<frame index="2"  x="80" y="80" width="40" height="40" />
-		<frame index="3"  x="80" y="120" width="40" height="40" />
-		<frame index="4"  x="80" y="160" width="40" height="40" />
-		<Interval>0.25</Interval>
-		<Looping>true</Looping>
+	<Animation Name="Standing" Direction="Up">
+		<Frame index="0"  x="80" y="0" width="40" height="40" />
+		<Frame index="1"  x="80" y="40" width="40" height="40" />
+		<Frame index="2"  x="80" y="80" width="40" height="40" />
+		<Frame index="3"  x="80" y="120" width="40" height="40" />
+		<Frame index="4"  x="80" y="160" width="40" height="40" />
+		<Interval>1</Interval>
+		<IsLoop>true</IsLoop>
+		<PauseAtEnd>false</PauseAtEnd>
 	</Animation>
-	<Animation>
-		<Name>Standing</Name>
-		<Direction>Right</Direction>
-		<frame index="0"  x="120" y="0" width="40" height="40" />
-		<frame index="1"  x="120" y="40" width="40" height="40" />
-		<frame index="2"  x="120" y="80" width="40" height="40" />
-		<frame index="3"  x="120" y="120" width="40" height="40" />
-		<frame index="4"  x="120" y="160" width="40" height="40" />
-		<Interval>0.25</Interval>
-		<Looping>true</Looping>
+	<Animation Name="Standing" Direction="Right">
+		<Frame index="0"  x="120" y="0" width="40" height="40" />
+		<Frame index="1"  x="120" y="40" width="40" height="40" />
+		<Frame index="2"  x="120" y="80" width="40" height="40" />
+		<Frame index="3"  x="120" y="120" width="40" height="40" />
+		<Frame index="4"  x="120" y="160" width="40" height="40" />
+		<Interval>1</Interval>
+		<IsLoop>true</IsLoop>
+		<PauseAtEnd>false</PauseAtEnd>
 	</Animation>
 
+	<!-- ShakeHead -->
+	<!-- Walking -->
+	<Animation Name="Walking" Direction="Down">
+		<Frame index="0"  x="0" y="200" width="40" height="40" />
+		<Frame index="1"  x="0" y="240" width="40" height="40" />
+		<Frame index="2"  x="0" y="280" width="40" height="40" />
+		<Frame index="3"  x="0" y="320" width="40" height="40" />
+		<Frame index="4"  x="0" y="360" width="40" height="40" />
+		<Interval>0.25</Interval>
+		<IsLoop>true</IsLoop>
+		<PauseAtEnd>false</PauseAtEnd>
+	</Animation>
+	<Animation Name="Walking" Direction="Left">
+		<Frame index="0"  x="40" y="200" width="40" height="40" />
+		<Frame index="1"  x="40" y="240" width="40" height="40" />
+		<Frame index="2"  x="40" y="280" width="40" height="40" />
+		<Frame index="3"  x="40" y="320" width="40" height="40" />
+		<Frame index="4"  x="40" y="360" width="40" height="40" />
+		<Interval>0.25</Interval>
+		<IsLoop>true</IsLoop>
+		<PauseAtEnd>false</PauseAtEnd>
+	</Animation>
+	<Animation Name="Walking" Direction="Up">
+		<Frame index="0"  x="80" y="200" width="40" height="40" />
+		<Frame index="1"  x="80" y="240" width="40" height="40" />
+		<Frame index="2"  x="80" y="280" width="40" height="40" />
+		<Frame index="3"  x="80" y="320" width="40" height="40" />
+		<Frame index="4"  x="80" y="360" width="40" height="40" />
+		<Interval>0.25</Interval>
+		<IsLoop>true</IsLoop>
+		<PauseAtEnd>false</PauseAtEnd>
+	</Animation>
+	<Animation Name="Walking" Direction="Right">
+		<Frame index="0"  x="120" y="200" width="40" height="40" />
+		<Frame index="1"  x="120" y="240" width="40" height="40" />
+		<Frame index="2"  x="120" y="280" width="40" height="40" />
+		<Frame index="3"  x="120" y="320" width="40" height="40" />
+		<Frame index="4"  x="120" y="360" width="40" height="40" />
+		<Interval>0.25</Interval>
+		<IsLoop>true</IsLoop>
+		<PauseAtEnd>false</PauseAtEnd>
+	</Animation>
+
+	<!-- Running -->
+	<!-- BattleIntro -->
+	<!-- BattleIdle -->
+
+
+	<!-- Attack -->
+	<Animation Name="Attack" Direction="Down">
+		<Frame index="0"  x="160" y="40" width="40" height="40" />
+		<Frame index="1"  x="160" y="80" width="40" height="40" />
+		<Frame index="2"  x="160" y="120" width="40" height="40" />
+		<Frame index="3"  x="160" y="160" width="40" height="40" />
+		<Frame index="4"  x="160" y="200" width="40" height="40" />
+		<Frame index="5"  x="160" y="40" width="40" height="40" />
+		<Interval>0.13</Interval>
+		<IsLoop>false</IsLoop>
+		<PauseAtEnd>false</PauseAtEnd>
+	</Animation>
+	<Animation Name="Attack" Direction="Left">
+		<Frame index="0"  x="200" y="40" width="40" height="40" />
+		<Frame index="1"  x="200" y="80" width="40" height="40" />
+		<Frame index="2"  x="200" y="120" width="40" height="40" />
+		<Frame index="3"  x="200" y="160" width="40" height="40" />
+		<Frame index="4"  x="200" y="200" width="40" height="40" />
+		<Frame index="5"  x="200" y="40" width="40" height="40" />
+		<Interval>0.13</Interval>
+		<IsLoop>false</IsLoop>
+		<PauseAtEnd>false</PauseAtEnd>
+	</Animation>
+	<Animation Name="Attack" Direction="Up">
+		<Frame index="0"  x="240" y="40" width="40" height="40" />
+		<Frame index="1"  x="240" y="80" width="40" height="40" />
+		<Frame index="2"  x="240" y="120" width="40" height="40" />
+		<Frame index="3"  x="240" y="160" width="40" height="40" />
+		<Frame index="4"  x="240" y="200" width="40" height="40" />
+		<Frame index="5"  x="240" y="40" width="40" height="40" />
+		<Interval>0.13</Interval>
+		<IsLoop>false</IsLoop>
+		<PauseAtEnd>false</PauseAtEnd>
+	</Animation>
+	<Animation Name="Attack" Direction="Right">
+		<Frame index="0"  x="280" y="40" width="40" height="40" />
+		<Frame index="1"  x="280" y="80" width="40" height="40" />
+		<Frame index="2"  x="280" y="120" width="40" height="40" />
+		<Frame index="3"  x="280" y="160" width="40" height="40" />
+		<Frame index="4"  x="280" y="200" width="40" height="40" />
+		<Frame index="5"  x="280" y="40" width="40" height="40" />
+		<Interval>0.13</Interval>
+		<IsLoop>false</IsLoop>
+		<PauseAtEnd>false</PauseAtEnd>
+	</Animation>
+
+	<!-- Guarding -->
+	<Animation Name="Guarding" Direction="Down">
+		<Frame index="0"  x="160" y="0" width="40" height="40" />
+		<Interval>0.25</Interval>
+		<IsLoop>false</IsLoop>
+		<PauseAtEnd>true</PauseAtEnd>
+	</Animation>
+	<Animation Name="Guarding" Direction="Left">
+		<Frame index="0"  x="200" y="0" width="40" height="40" />
+		<Interval>0.25</Interval>
+		<IsLoop>false</IsLoop>
+		<PauseAtEnd>true</PauseAtEnd>
+	</Animation>
+	<Animation Name="Guarding" Direction="Up">
+		<Frame index="0"  x="240" y="0" width="40" height="40" />
+		<Interval>0.25</Interval>
+		<IsLoop>false</IsLoop>
+		<PauseAtEnd>true</PauseAtEnd>
+	</Animation>
+	<Animation Name="Guarding" Direction="Right">
+		<Frame index="0"  x="280" y="0" width="40" height="40" />
+		<Interval>0.25</Interval>
+		<IsLoop>false</IsLoop>
+		<PauseAtEnd>true</PauseAtEnd>
+	</Animation>
+	
+	<!-- CastSpell -->
+	<Animation Name="CastSpell" Direction="Down">
+		<Frame index="0"  x="160" y="240" width="40" height="40" />
+		<Frame index="1"  x="160" y="280" width="40" height="40" />
+		<Frame index="2"  x="160" y="320" width="40" height="40" />
+		<Frame index="3"  x="160" y="360" width="40" height="40" />
+		<Interval>0.25</Interval>
+		<IsLoop>false</IsLoop>
+		<PauseAtEnd>false</PauseAtEnd>
+	</Animation>
+	<Animation Name="CastSpell" Direction="Left">
+		<Frame index="0"  x="200" y="240" width="40" height="40" />
+		<Frame index="1"  x="200" y="280" width="40" height="40" />
+		<Frame index="2"  x="200" y="320" width="40" height="40" />
+		<Frame index="3"  x="200" y="360" width="40" height="40" />
+		<Interval>0.25</Interval>
+		<IsLoop>false</IsLoop>
+		<PauseAtEnd>false</PauseAtEnd>
+	</Animation>
+	<Animation Name="CastSpell" Direction="Up">
+		<Frame index="0"  x="240" y="240" width="40" height="40" />
+		<Frame index="1"  x="240" y="280" width="40" height="40" />
+		<Frame index="2"  x="240" y="320" width="40" height="40" />
+		<Frame index="3"  x="240" y="360" width="40" height="40" />
+		<Interval>0.25</Interval>
+		<IsLoop>false</IsLoop>
+		<PauseAtEnd>false</PauseAtEnd>
+	</Animation>
+	<Animation Name="CastSpell" Direction="Right">
+		<Frame index="0"  x="280" y="240" width="40" height="40" />
+		<Frame index="1"  x="280" y="280" width="40" height="40" />
+		<Frame index="2"  x="280" y="320" width="40" height="40" />
+		<Frame index="3"  x="280" y="360" width="40" height="40" />
+		<Interval>0.25</Interval>
+		<IsLoop>false</IsLoop>
+		<PauseAtEnd>false</PauseAtEnd>
+	</Animation>
+	
+	<!-- Dead -->
+	<Animation Name="Dead" Direction="Left">
+		<Frame index="0"  x="120" y="0" width="40" height="40" />
+		<Frame index="1"  x="120" y="40" width="40" height="40" />
+		<Frame index="2"  x="120" y="80" width="40" height="40" />
+		<Frame index="3"  x="120" y="120" width="40" height="40" />
+		<Frame index="4"  x="120" y="160" width="40" height="40" />
+		<Interval>0.25</Interval>
+		<IsLoop>true</IsLoop>
+		<PauseAtEnd>true</PauseAtEnd>
+	</Animation>
+	<Animation Name="Dead" Direction="Right">
+		<Frame index="0"  x="120" y="0" width="40" height="40" />
+		<Frame index="1"  x="120" y="40" width="40" height="40" />
+		<Frame index="2"  x="120" y="80" width="40" height="40" />
+		<Frame index="3"  x="120" y="120" width="40" height="40" />
+		<Frame index="4"  x="120" y="160" width="40" height="40" />
+		<Interval>0.25</Interval>
+		<IsLoop>false</IsLoop>
+		<PauseAtEnd>true</PauseAtEnd>
+	</Animation>
+
+	<!-- Victory -->
+	<Animation Name="Victory" Direction="Down">
+		<Frame index="0"  x="120" y="0" width="40" height="40" />
+		<Frame index="1"  x="120" y="40" width="40" height="40" />
+		<Frame index="2"  x="120" y="80" width="40" height="40" />
+		<Frame index="3"  x="120" y="120" width="40" height="40" />
+		<Frame index="4"  x="120" y="160" width="40" height="40" />
+		<Interval>0.25</Interval>
+		<IsLoop>false</IsLoop>
+		<PauseAtEnd>true</PauseAtEnd>
+	</Animation>
+	
+	<!-- UseItem -->
+	<Animation Name="UseItem" Direction="Down">
+		<Frame index="0"  x="120" y="0" width="40" height="40" />
+		<Frame index="1"  x="120" y="40" width="40" height="40" />
+		<Frame index="2"  x="120" y="80" width="40" height="40" />
+		<Frame index="3"  x="120" y="120" width="40" height="40" />
+		<Frame index="4"  x="120" y="160" width="40" height="40" />
+		<Interval>0.25</Interval>
+		<IsLoop>true</IsLoop>
+		<PauseAtEnd>false</PauseAtEnd>
+	</Animation>
+	<Animation Name="UseItem" Direction="Left">
+		<Frame index="0"  x="120" y="0" width="40" height="40" />
+		<Frame index="1"  x="120" y="40" width="40" height="40" />
+		<Frame index="2"  x="120" y="80" width="40" height="40" />
+		<Frame index="3"  x="120" y="120" width="40" height="40" />
+		<Frame index="4"  x="120" y="160" width="40" height="40" />
+		<Interval>0.25</Interval>
+		<IsLoop>true</IsLoop>
+		<PauseAtEnd>false</PauseAtEnd>
+	</Animation>
+	<Animation Name="UseItem" Direction="Up">
+		<Frame index="0"  x="120" y="0" width="40" height="40" />
+		<Frame index="1"  x="120" y="40" width="40" height="40" />
+		<Frame index="2"  x="120" y="80" width="40" height="40" />
+		<Frame index="3"  x="120" y="120" width="40" height="40" />
+		<Frame index="4"  x="120" y="160" width="40" height="40" />
+		<Interval>0.25</Interval>
+		<IsLoop>true</IsLoop>
+		<PauseAtEnd>false</PauseAtEnd>
+	</Animation>
+	<Animation Name="UseItem" Direction="Right">
+		<Frame index="0"  x="120" y="0" width="40" height="40" />
+		<Frame index="1"  x="120" y="40" width="40" height="40" />
+		<Frame index="2"  x="120" y="80" width="40" height="40" />
+		<Frame index="3"  x="120" y="120" width="40" height="40" />
+		<Frame index="4"  x="120" y="160" width="40" height="40" />
+		<Interval>0.25</Interval>
+		<IsLoop>true</IsLoop>
+		<PauseAtEnd>false</PauseAtEnd>
+	</Animation>
 
 
 </Player>

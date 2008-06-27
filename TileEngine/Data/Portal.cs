@@ -27,8 +27,7 @@ namespace ActionRPG
             set { portalEnteranceVector = value; }
         }
         Vector2 portalEnteranceVector;
-
-
+        
 
         /// <summary>
         /// Destinations Map Name
@@ -39,6 +38,7 @@ namespace ActionRPG
             set { destinationMap = value; }
         }
         string destinationMap;
+
 
         /// <summary>
         /// Spawn location on the destination map

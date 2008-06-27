@@ -16,6 +16,12 @@ namespace ActionRPG
             Load(asset);
         }
 
+        public Armor(string asset, int percent)
+        {
+            Load(asset);
+            this.Percent = percent;
+        }
+
         private void Load(string asset)
         {
             XmlDocument doc = new XmlDocument();
@@ -27,6 +33,9 @@ namespace ActionRPG
                 {
                     if (node.Name == "Defense")
                         defense = int.Parse(node.InnerText);
+
+                    if (node.Name == "Dodge")
+                        block = int.Parse(node.InnerText);
                 }
             }
 
@@ -46,6 +55,17 @@ namespace ActionRPG
             set { defense = value; }
         }
         int defense;
+
+
+        /// <summary>
+        /// Blocking ability added to the user
+        /// </summary>
+        public int Block
+        {
+            get { return block; }
+            set { block = value; }
+        }
+        int block;
 
     }
 }
