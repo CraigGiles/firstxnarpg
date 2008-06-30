@@ -1,0 +1,7 @@
+﻿<QuestLine>
+	<Name>Training</Name>
+	<QuestContentNames>
+		<Item>TrainingNote</Item>
+		<Item>ClearFields</Item>
+	</QuestContentNames>
+</QuestLine>
