@@ -24,6 +24,7 @@ namespace ActionRPG
         SpriteBatch spriteBatch;
         TileEngine tileEngine;
         Settings settings;
+        Battle battle;
 
         Camera2D camera;
 
@@ -81,6 +82,9 @@ namespace ActionRPG
 
             settings = new Settings();
             Globals.Settings = settings;
+
+            battle = new Battle();
+            Globals.Battle = battle;
         }
         
         /// <summary>

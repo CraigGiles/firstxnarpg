@@ -1,2 +1,1 @@
 D:\Programming\Projects\XNA\ActionRPG\Content\obj\x86\Debug\ResolveAssemblyReference.cache
-C:\Users\Demius\Documents\Visual Studio 2005\Projects\ActionRPG\ActionRPG\Content\obj\x86\Debug\ResolveAssemblyReference.cache
