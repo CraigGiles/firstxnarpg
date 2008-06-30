@@ -1,0 +1,42 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 9.00
+# Visual C# Express 2005
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ActionRPG", "ActionRPG.csproj", "{7F89D3C4-2041-4F90-A6B8-99101CFBDEF0}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|Mixed Platforms = Debug|Mixed Platforms
+		Debug|x86 = Debug|x86
+		Debug|Xbox 360 = Debug|Xbox 360
+		Release|Any CPU = Release|Any CPU
+		Release|Mixed Platforms = Release|Mixed Platforms
+		Release|x86 = Release|x86
+		Release|Xbox 360 = Release|Xbox 360
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7F89D3C4-2041-4F90-A6B8-99101CFBDEF0}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{7F89D3C4-2041-4F90-A6B8-99101CFBDEF0}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{7F89D3C4-2041-4F90-A6B8-99101CFBDEF0}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{7F89D3C4-2041-4F90-A6B8-99101CFBDEF0}.Debug|x86.ActiveCfg = Debug|x86
+		{7F89D3C4-2041-4F90-A6B8-99101CFBDEF0}.Debug|x86.Build.0 = Debug|x86
+		{7F89D3C4-2041-4F90-A6B8-99101CFBDEF0}.Debug|Xbox 360.ActiveCfg = Debug|x86
+		{7F89D3C4-2041-4F90-A6B8-99101CFBDEF0}.Release|Any CPU.ActiveCfg = Release|x86
+		{7F89D3C4-2041-4F90-A6B8-99101CFBDEF0}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{7F89D3C4-2041-4F90-A6B8-99101CFBDEF0}.Release|Mixed Platforms.Build.0 = Release|x86
+		{7F89D3C4-2041-4F90-A6B8-99101CFBDEF0}.Release|x86.ActiveCfg = Release|x86
+		{7F89D3C4-2041-4F90-A6B8-99101CFBDEF0}.Release|x86.Build.0 = Release|x86
+		{7F89D3C4-2041-4F90-A6B8-99101CFBDEF0}.Release|Xbox 360.ActiveCfg = Release|x86
+		{D7C217C3-9688-4FD8-A5B1-6B77697E0A9C}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{D7C217C3-9688-4FD8-A5B1-6B77697E0A9C}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{D7C217C3-9688-4FD8-A5B1-6B77697E0A9C}.Debug|x86.ActiveCfg = Debug|x86
+		{D7C217C3-9688-4FD8-A5B1-6B77697E0A9C}.Debug|Xbox 360.ActiveCfg = Debug|x86
+		{D7C217C3-9688-4FD8-A5B1-6B77697E0A9C}.Release|Any CPU.ActiveCfg = Release|x86
+		{D7C217C3-9688-4FD8-A5B1-6B77697E0A9C}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{D7C217C3-9688-4FD8-A5B1-6B77697E0A9C}.Release|x86.ActiveCfg = Release|x86
+		{D7C217C3-9688-4FD8-A5B1-6B77697E0A9C}.Release|Xbox 360.ActiveCfg = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
