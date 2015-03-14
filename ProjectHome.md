@@ -1,0 +1,1 @@
+CodeName ShackRPG, it is my first attempt at any "big" program. I have been coding for a little over 4 months, so this project was used to learn some of the techniques for OO design and coding methods. Feedback is VERY MUCH welcome, as I am always looking for ways to improve and new ways of thinking.
